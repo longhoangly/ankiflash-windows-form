@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using WindowsFormsApplication;
 
 namespace FlashcardsGeneratorApplication
 {
@@ -26,7 +27,7 @@ namespace FlashcardsGeneratorApplication
         {
             InitializeComponent();
             EmbededCopy();
-            flashcardsGenerator.MonitorTextCopied(e);
+            //flashcardsGenerator.MonitorTextCopied(e);
 
             backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorker_DoWork);
             backgroundWorker.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker_ProgressChanged);
@@ -129,6 +130,12 @@ namespace FlashcardsGeneratorApplication
                     e.Cancel = true;
                     canceled = true;
                     return;
+                }
+
+                if (i == 0)
+                {
+                    Notification notification = new Notification();
+                    notification.SendEmail();
                 }
 
                 _ankiCard = flashcardsGenerator.GenerateFlashCards(_words[i].Replace("\r", "").Replace("\n", ""), _proxy, _language);
