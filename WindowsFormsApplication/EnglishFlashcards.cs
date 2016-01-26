@@ -197,21 +197,11 @@ namespace FlashcardsGeneratorApplication
 
             string examples = exampleElements.OuterHTML;
 
-            string exampleText = _basicFunctions.GetElementObject(dom, "span[class=x-g]>span[class=x]", 0).InnerText;
-            exampleText = exampleText.Replace(word, "{{c1::" + word + "}}");
-
-            examples = Regex.Replace(examples, "<span class=\"x\".*?>.*</span>", "<span class=\"x\">" + exampleText + "</span>");
-
             for (int i = 1; i < 4; i++)
             {
                 try
                 {
                     examples += _basicFunctions.GetElementObject(dom, "span[class=x-g]", i).OuterHTML;
-
-                    exampleText = _basicFunctions.GetElementObject(dom, "span[class=x-g]>span[class=x]", i).InnerText;
-                    exampleText = exampleText.Replace(word, "{{c1::" + word + "}}");
-
-                    examples = Regex.Replace(examples, "<span class=\"x\".*?>.*</span>", "<span class=\"x\">" + exampleText + "</span>");
                 }
                 catch (Exception e)
                 {
@@ -219,7 +209,7 @@ namespace FlashcardsGeneratorApplication
                 }
             }
 
-            // examples = examples.Replace(word, "{{c1::" + word + "}}");
+            examples = examples.Replace(word, "{{c1::" + word + "}}");
             examples = "<link type=\"text/css\" rel=\"stylesheet\" href=\"oxford.css\">" + examples;
 
             return examples;
