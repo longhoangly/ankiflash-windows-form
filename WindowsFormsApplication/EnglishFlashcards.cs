@@ -73,7 +73,7 @@ namespace FlashcardsGeneratorApplication
             _thumb = GetOxfordImages(_oxfDocument, proxyStr, "img.thumb", "src");
             _img = GetOxfordImages(_oxfDocument, proxyStr, "a[class=topic]", "href");
             _tag = _wrd[0];
-            _copyRight = "This flashcard's content is get from the Oxford Advanced Learner's & Soha Online Dictionaries.<br>Thanks Oxford & Soha Dictionaries! Thanks for using!";
+            _copyRight = "This flashcard's content is get from the Oxford Advanced Learner's & LacViet Online Dictionaries.<br>Thanks Oxford & LacViet Dictionaries! Thanks for using!";
 
             #region build string _ankiCard
             if (language.Equals(FlashcardsGenerator.enToEng))
