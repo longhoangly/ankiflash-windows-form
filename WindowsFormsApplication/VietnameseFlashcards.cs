@@ -73,8 +73,6 @@ namespace FlashcardsGeneratorApplication
                 lacVietUrl = "http://tratu.coviet.vn/tu-dien-lac-viet.aspx?learn=hoc-tieng-anh&t=V-F&k=" + word;
             }
 
-            CQ lacVietDom = "";
-
             StreamReader lacVietSt = _basicFunctions.HttpGetRequestViaProxy(lacVietUrl, proxyStr);
             if (lacVietSt == null)
             {
@@ -82,7 +80,7 @@ namespace FlashcardsGeneratorApplication
             }
 
             string lacVietDoc = lacVietSt.ReadToEnd();
-            lacVietDom = CsQuery.CQ.Create(lacVietDoc);
+            CQ lacVietDom = CsQuery.CQ.Create(lacVietDoc);
 
             string lacVietResult = lacVietDom["div[class=i p10]"].Text();
             if (lacVietResult.Contains("Dữ liệu đang được cập nhật"))

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading;
 using CsQuery;
 using Mono.Web;
@@ -9,7 +10,7 @@ namespace FlashcardsGeneratorApplication
     class EnglishFlashcards
     {
         private CQ _oxfDocument = "";
-        private CQ _sohaDocument = "";
+        private CQ _lacVietDocument = "";
 
         private string _wrd = "";
         private string _wordType = "";
@@ -18,7 +19,7 @@ namespace FlashcardsGeneratorApplication
         private string _proUk = "";
         private string _proUs = "";
         private string _oxfContent = "";
-        private string _sohaContent = "";
+        private string _lacVietContent = "";
         private string _thumb = "";
         private string _img = "";
         private string _ankiCard = "";
@@ -47,13 +48,13 @@ namespace FlashcardsGeneratorApplication
             }
             else
             {
-                if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.GenOk) && checkSohaContent(word, proxyStr).Equals(FlashcardsGenerator.GenOk))
+                if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.GenOk) && checkLacVietContent(word, proxyStr).Equals(FlashcardsGenerator.GenOk))
                 {
                     _oxfContent = GetOxfordContent(_oxfDocument);
-                    _sohaContent = GetSohaContent(_sohaDocument);
-                    _sohaContent = _sohaContent.Replace("<div id=\"firstHeading\"> </div>", "<div id=\"firstHeading\">" + word + "</div>");
+                    _lacVietContent = GetLacVietContent(_lacVietDocument);
+                    _lacVietContent = _lacVietContent.Replace("<div id=\"firstHeading\"> </div>", "<div id=\"firstHeading\">" + word + "</div>");
                 }
-                else if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.ConNotOk) || checkSohaContent(word, proxyStr).Equals(FlashcardsGenerator.ConNotOk))
+                else if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.ConNotOk) || checkLacVietContent(word, proxyStr).Equals(FlashcardsGenerator.ConNotOk))
                 {
                     return FlashcardsGenerator.ConNotOk;
                 }
@@ -82,15 +83,15 @@ namespace FlashcardsGeneratorApplication
             }
             else if (language.Equals(FlashcardsGenerator.enToViet))
             {
-                _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _example + "\t" + _proUk + "\t" + _proUs + "\t" + _thumb + "\t" + _img + "\t" + _sohaContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
+                _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _example + "\t" + _proUk + "\t" + _proUs + "\t" + _thumb + "\t" + _img + "\t" + _lacVietContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
             }
             else if (language.Equals(FlashcardsGenerator.enToEngViet))
             {
-                _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _example + "\t" + _proUk + "\t" + _proUs + "\t" + _thumb + "\t" + _img + "\t" + _oxfContent + "\t" + _sohaContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
+                _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _example + "\t" + _proUk + "\t" + _proUs + "\t" + _thumb + "\t" + _img + "\t" + _oxfContent + "\t" + _lacVietContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
             }
             else if (language.Equals(FlashcardsGenerator.enToVietEng))
             {
-                _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _example + "\t" + _proUk + "\t" + _proUs + "\t" + _thumb + "\t" + _img + "\t" + _sohaContent + "\t" + _oxfContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
+                _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _example + "\t" + _proUk + "\t" + _proUs + "\t" + _thumb + "\t" + _img + "\t" + _lacVietContent + "\t" + _oxfContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
             }
             #endregion
 
@@ -137,52 +138,35 @@ namespace FlashcardsGeneratorApplication
             return FlashcardsGenerator.GenOk;
         }
 
-        private string checkSohaContent(string word, string proxyStr)
+        private string checkLacVietContent(string word, string proxyStr)
         {
-            string sohaUrl = "";
-            if (word.Contains("tratu.soha.vn"))
+            string lacVietUrl = "";
+            if (word.Contains("tratu.coviet.vn"))
             {
-                sohaUrl = word;
+                lacVietUrl = word;
             }
             else
             {
                 word = word.Replace(" ", "+");
-                sohaUrl = "http://tratu.soha.vn/index.php?search=" + word + "&dict=en_vn&btnSearch=&chuyennganh=&tenchuyennganh=";
+                lacVietUrl = "http://tratu.coviet.vn/tu-dien-lac-viet.aspx?learn=hoc-tieng-anh&t=A-V&k=" + word;
             }
-
-            CQ sohaDom = "";
-            int count = 0;
-            while (_basicFunctions.GetElementObject(sohaDom, "#content", 0) == null)
+            
+            StreamReader lacVietSt = _basicFunctions.HttpGetRequestViaProxy(lacVietUrl, proxyStr);
+            if (lacVietSt == null)
             {
-                StreamReader sohaSt = _basicFunctions.HttpGetRequestViaProxy(sohaUrl, proxyStr);
-                if (sohaSt == null)
-                {
-                    return FlashcardsGenerator.ConNotOk;
-                }
-
-                string sohaDoc = sohaSt.ReadToEnd();
-                sohaDom = CsQuery.CQ.Create(sohaDoc);
-
-                string sohaTitle = sohaDom["title"].Text();
-                if (sohaTitle.Contains("Kết quả tìm"))
-                {
-                    return FlashcardsGenerator.SpelNotOk;
-                }
-
-                if (count < 20)
-                {
-                    count++;
-                    Thread.Sleep(1000); //1 second
-                }
-                else
-                {
-                    return FlashcardsGenerator.GenNotOk;
-                }
+                return FlashcardsGenerator.ConNotOk;
             }
 
-            _sohaDocument = sohaDom;
-            _sohaDocument = _sohaDocument.Select("h2 > span[class=mw-headline]").Before("<img src=\"minus_section.jpg\"> &nbsp;");
-            _sohaDocument = _sohaDocument.Select("h3 > span[class=mw-headline]").After("&nbsp; <img src=\"minus_section.jpg\">");
+            string lacVietDoc = lacVietSt.ReadToEnd();
+            CQ lacVietDom = CsQuery.CQ.Create(lacVietDoc);
+
+            string lacVietResult = lacVietDom["div[class=i p10]"].Text();
+            if (lacVietResult.Contains("Dữ liệu đang được cập nhật"))
+            {
+                return FlashcardsGenerator.SpelNotOk;
+            }
+
+            _lacVietDocument = lacVietDom;
 
             return FlashcardsGenerator.GenOk;
         }
@@ -213,11 +197,21 @@ namespace FlashcardsGeneratorApplication
 
             string examples = exampleElements.OuterHTML;
 
+            string exampleText = _basicFunctions.GetElementObject(dom, "span[class=x-g]>span[class=x]", 0).InnerText;
+            exampleText = exampleText.Replace(word, "{{c1::" + word + "}}");
+
+            examples = Regex.Replace(examples, "<span class=\"x\".*?>.*</span>", "<span class=\"x\">" + exampleText + "</span>");
+
             for (int i = 1; i < 4; i++)
             {
                 try
                 {
                     examples += _basicFunctions.GetElementObject(dom, "span[class=x-g]", i).OuterHTML;
+
+                    exampleText = _basicFunctions.GetElementObject(dom, "span[class=x-g]>span[class=x]", i).InnerText;
+                    exampleText = exampleText.Replace(word, "{{c1::" + word + "}}");
+
+                    examples = Regex.Replace(examples, "<span class=\"x\".*?>.*</span>", "<span class=\"x\">" + exampleText + "</span>");
                 }
                 catch (Exception e)
                 {
@@ -225,7 +219,7 @@ namespace FlashcardsGeneratorApplication
                 }
             }
 
-            examples = examples.Replace(word, "{{c1::" + word + "}}");
+            // examples = examples.Replace(word, "{{c1::" + word + "}}");
             examples = "<link type=\"text/css\" rel=\"stylesheet\" href=\"oxford.css\">" + examples;
 
             return examples;
@@ -282,21 +276,25 @@ namespace FlashcardsGeneratorApplication
             return oxfContent;
         }
 
-        private string GetSohaContent(CQ dom)
+        private string GetLacVietContent(CQ dom)
         {
-            IDomObject sohaContentElement = _basicFunctions.GetElementObject(dom, "#content", 0);
+            IDomObject lacVietContentElement = _basicFunctions.GetElementObject(dom, "#ctl00_ContentPlaceHolderMain_cnt_dict", 0);
 
-            string sohaContent =
+            string lacVietContent =
             "<html>" + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">" +
-            "<link type=\"text/css\" rel=\"stylesheet\" href=\"main_min.css\">" +
+            "<link type=\"text/css\" rel=\"stylesheet\" href=\"home.css\">" +
             "<link type=\"text/css\" rel=\"stylesheet\" href=\"responsive.css\">" +
-            "<div class=\"responsive_entry_center_wrap\">" + sohaContentElement.OuterHTML + "</div>" + "</html>";
+            "<div class=\"responsive_entry_center_wrap\">" + lacVietContentElement.OuterHTML + "</div>" + "</html>";
 
-            sohaContent = sohaContent.Replace("\t", "");
-            sohaContent = sohaContent.Replace("\r", "");
-            sohaContent = sohaContent.Replace("\n", "");
+            lacVietContent = lacVietContent.Replace("\t", "");
+            lacVietContent = lacVietContent.Replace("\r", "");
+            lacVietContent = lacVietContent.Replace("\n", "");
 
-            return sohaContent;
+            lacVietContent = Regex.Replace(lacVietContent, "<div class=\"p5l fl\".*?</div>", "");
+            lacVietContent = Regex.Replace(lacVietContent, "<div class=\"p3l fl m3t\">.*?</div>", "");
+            lacVietContent = lacVietContent.Replace("<div class=\"cgach p5lr fl\">|</div>", "");
+
+            return lacVietContent;
         }
     }
 }
