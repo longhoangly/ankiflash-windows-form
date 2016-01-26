@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
-using WindowsFormsApplication;
 
 namespace FlashcardsGeneratorApplication
 {
@@ -23,22 +23,29 @@ namespace FlashcardsGeneratorApplication
         private UTF8Encoding _utf8WithoutBom = new UTF8Encoding(false);
         private FlashcardsGenerator flashcardsGenerator = new FlashcardsGenerator();
 
+        #region Copy Clipboard
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
+
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        public static extern bool ChangeClipboardChain(IntPtr hWndRemove, IntPtr hWndNewNext);
+
+        // WM_DRAWCLIPBOARD message
+        private const int WM_DRAWCLIPBOARD = 0x0308;
+        // Our variable that will hold the value to identify the next window in the clipboard viewer chain.
+        private IntPtr _clipboardViewerNext;
+        #endregion
+
         public MainForm()
         {
             InitializeComponent();
             EmbededCopy();
-            //flashcardsGenerator.MonitorTextCopied(e);
 
             backgroundWorker.DoWork += new DoWorkEventHandler(backgroundWorker_DoWork);
             backgroundWorker.ProgressChanged += new ProgressChangedEventHandler(backgroundWorker_ProgressChanged);
             backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker_RunWorkerCompleted);
             backgroundWorker.WorkerReportsProgress = true;
             backgroundWorker.WorkerSupportsCancellation = true;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            this.Location = new Point(300, 100);
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -132,12 +139,6 @@ namespace FlashcardsGeneratorApplication
                     return;
                 }
 
-                if (i == 0)
-                {
-                    Notification notification = new Notification();
-                    notification.SendEmail();
-                }
-
                 _ankiCard = flashcardsGenerator.GenerateFlashCards(_words[i].Replace("\r", "").Replace("\n", ""), _proxy, _language);
                 if (_ankiCard.Contains(FlashcardsGenerator.ConNotOk))
                 {
@@ -186,6 +187,20 @@ namespace FlashcardsGeneratorApplication
         {
             labelProxyConnection.Enabled = chkBoxUseProxy.Checked;
             txtProxyString.Enabled = chkBoxUseProxy.Checked;
+        }
+
+        private void chkBoxClipboard_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkBoxClipboard.Checked)
+            {
+                Clipboard.Clear();
+                // Adds our form to the chain of clipboard viewers.
+                _clipboardViewerNext = SetClipboardViewer(this.Handle);
+            }
+            else
+            {
+                ChangeClipboardChain(this.Handle, _clipboardViewerNext);
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -318,12 +333,16 @@ namespace FlashcardsGeneratorApplication
         {
             string layout = @".\AnkiFlashcards\oxlayout";
             string soha = @".\AnkiFlashcards\soha";
+            string lacViet = @".\AnkiFlashcards\lacViet";
+            string collins = @".\AnkiFlashcards\collins";
             string sound = @".\AnkiFlashcards\sounds";
             string image = @".\AnkiFlashcards\images";
 
             ChecknCreateFolders(@".\AnkiFlashcards");
             ChecknCreateFolders(layout);
             ChecknCreateFolders(soha);
+            ChecknCreateFolders(lacViet);
+            ChecknCreateFolders(collins);
             ChecknCreateFolders(sound);
             ChecknCreateFolders(image);
 
@@ -415,21 +434,77 @@ namespace FlashcardsGeneratorApplication
             input2.Save(soha + @"\external.png");
             #endregion
 
+            #region LacViet folder
+            input = Properties.Resources.main;
+            File.WriteAllText(lacViet + @"\main.css", input);
+
+            input2 = Properties.Resources.icons_right;
+            input2.Save(lacViet + @"\icons-right.png");
+            #endregion
+
+            #region Collins folder
+            input = Properties.Resources.home;
+            File.WriteAllText(collins + @"\home.css", input);
+
+            input2 = Properties.Resources.Icon_6_7;
+            input2.Save(collins + @"\Icon_6_7.png");
+
+            input2 = Properties.Resources.Icon_7_4;
+            input2.Save(collins + @"\Icon_7_4.png");
+            #endregion
+
             #region Anki images & Note Type
             input2 = Properties.Resources.anki;
             input2.Save(image + @"\anki.png");
 
-            Byte[] input3 = Properties.Resources.singleformABCDEFGHLONGLEE;
-            File.WriteAllBytes(@".\AnkiFlashcards\singleformABCDEFGHLONGLEE.apkg", input3);
+            Byte[] input3 = Properties.Resources._en_multiformABCDEFGHLONGLEE123;
+            File.WriteAllBytes(@".\AnkiFlashcards\[en]singleformABCDEFGHLONGLEE123.apkg", input3);
 
-            input3 = Properties.Resources.multiformABCDEFGHLONGLEE;
-            File.WriteAllBytes(@".\AnkiFlashcards\multiformABCDEFGHLONGLEE.apkg", input3);
+            input3 = Properties.Resources._en_singleformABCDEFGHLONGLEE123;
+            File.WriteAllBytes(@".\AnkiFlashcards\[en]multiformABCDEFGHLONGLEE123.apkg", input3);
+
+            input3 = Properties.Resources._fr_multiformABCDEFGHLONGLEE123;
+            File.WriteAllBytes(@".\AnkiFlashcards\[fr]multiformABCDEFGHLONGLEE123.apkg", input3);
+
+            input3 = Properties.Resources._fr_singleformABCDEFGHLONGLEE123;
+            File.WriteAllBytes(@".\AnkiFlashcards\[fr]singleformABCDEFGHLONGLEE123.apkg", input3);
+
+            input3 = Properties.Resources._vn_singleformABCDEFGHLONGLEE123;
+            File.WriteAllBytes(@".\AnkiFlashcards\[vn]singleformABCDEFGHLONGLEE123.apkg", input3);
             #endregion
         }
 
         private void support_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.facebook.com/ankiflashcard/");
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);    // Process the message 
+
+            if (m.Msg == WM_DRAWCLIPBOARD)
+            {
+                IDataObject iData = Clipboard.GetDataObject();      // Clipboard's data
+
+                if (iData.GetDataPresent(DataFormats.Text))
+                {
+                    string text = (string)iData.GetData(DataFormats.Text);      // Clipboard text
+                    // do something with it
+                    txtInput.Text += text + "\r\n";
+                }
+                else if (iData.GetDataPresent(DataFormats.Bitmap))
+                {
+                    Bitmap image = (Bitmap)iData.GetData(DataFormats.Bitmap);   // Clipboard image
+                    // do something with it
+                }
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            // Removes our from the chain of clipboard viewers when the form closes.
+            ChangeClipboardChain(this.Handle, _clipboardViewerNext);        
         }
     }
 }

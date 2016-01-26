@@ -95,6 +95,7 @@ namespace FlashcardsGeneratorApplication
             }
             #endregion
 
+            //_ankiCard = HttpUtility.HtmlDecode(_ankiCard);
             return _ankiCard;
         }
 
@@ -163,8 +164,8 @@ namespace FlashcardsGeneratorApplication
             string lacVietDoc = lacVietSt.ReadToEnd();
             lacVietDom = CsQuery.CQ.Create(lacVietDoc);
 
-            string lacVietTitle = lacVietDom["div[class=i p10]"].Text();
-            if (lacVietTitle.Contains("Dữ liệu đang được cập nhật"))
+            string lacVietResult = lacVietDom["div[class=i p10]"].Text();
+            if (lacVietResult.Contains("Dữ liệu đang được cập nhật"))
             {
                 return FlashcardsGenerator.SpelNotOk;
             }
@@ -204,7 +205,8 @@ namespace FlashcardsGeneratorApplication
             phonetic = Regex.Replace(phonetic, "<span class=\\\"hwd_sound\\\">.*</span>", "");
             phonetic = phonetic.Replace("(", "/").Replace(")", "/");
 
-            return phonetic == "" ? "There is no phonetic for this word!" : phonetic;
+            //return phonetic == "" ? "There is no phonetic for this word!" : phonetic;
+            return phonetic;
         }
 
         private string GetCollinsExamples(CQ dom, string word)
@@ -286,6 +288,8 @@ namespace FlashcardsGeneratorApplication
             collinsContent = collinsContent.Replace("\t", "");
             collinsContent = collinsContent.Replace("\r", "");
             collinsContent = collinsContent.Replace("\n", "");
+            collinsContent = Regex.Replace(collinsContent, "<span class=\"hwd_sound\">.*?</span>", "");
+
             return collinsContent;
         }
 
@@ -295,7 +299,7 @@ namespace FlashcardsGeneratorApplication
 
             string lacVietContent =
             "<html>" + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">" +
-            "<link type=\"text/css\" rel=\"stylesheet\" href=\"main.css\">" +
+            "<link type=\"text/css\" rel=\"stylesheet\" href=\"home.css\">" +
             "<link type=\"text/css\" rel=\"stylesheet\" href=\"responsive.css\">" +
             "<div class=\"responsive_entry_center_wrap\">" + lacVietContentElement.OuterHTML + "</div>" + "</html>";
 
@@ -303,7 +307,10 @@ namespace FlashcardsGeneratorApplication
             lacVietContent = lacVietContent.Replace("\r", "");
             lacVietContent = lacVietContent.Replace("\n", "");
 
-            lacVietContent = HttpUtility.HtmlDecode(lacVietContent);
+            lacVietContent = Regex.Replace(lacVietContent, "<div class=\"p5l fl\".*?</div>", "");
+            lacVietContent = Regex.Replace(lacVietContent, "<div class=\"p3l fl m3t\">.*?</div>", "");
+            lacVietContent = lacVietContent.Replace("<div class=\"cgach p5lr fl\">|</div>", "");
+
             return lacVietContent;
         }
     }

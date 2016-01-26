@@ -15,11 +15,9 @@ namespace FlashcardsGeneratorApplication
         private CQ _lacVietDocument = "";
 
         private string _wrd = "";
-        private string _wordType = "";
         private string _phonetic = "";
-        private string _collinsExample = "";
+        private string _lacVietExample = "";
         private string _pron = "";
-        private string _collinsContent = "";
         private string _lacVietContent = "";
         private string _thumb = "";
         private string _img = "";
@@ -29,126 +27,50 @@ namespace FlashcardsGeneratorApplication
 
         private readonly BasicFunctions _basicFunctions = new BasicFunctions();
 
-        public string GenerateFrenchFlashCards(string word, string proxyStr, string language)
+        public string GeneratevietnameseFlashCards(string word, string proxyStr, string language)
         {
-            #region Get Input & Check Condition
-            if (language.Equals(FlashcardsGenerator.frToEng))
+            if (checkLacVietContent(word, proxyStr, language).Equals(FlashcardsGenerator.GenOk))
             {
-                if (checkCollinsContent(word, proxyStr).Equals(FlashcardsGenerator.GenOk))
-                {
-                    _collinsContent = GetCollinsContent(_collinsDocument);
-                }
-                else if (checkCollinsContent(word, proxyStr).Equals(FlashcardsGenerator.ConNotOk))
-                {
-                    return FlashcardsGenerator.ConNotOk;
-                }
-                else
-                {
-                    return FlashcardsGenerator.GenNotOk + " - " + word + "\r\n";
-                }
+                _lacVietContent = GetLacVietContent(_lacVietDocument);
             }
-            else
-            {
-                if (checkCollinsContent(word, proxyStr).Equals(FlashcardsGenerator.GenOk) && checkLacVietContent(word, proxyStr).Equals(FlashcardsGenerator.GenOk))
-                {
-                    _collinsContent = GetCollinsContent(_collinsDocument);
-                    _lacVietContent = GetLacVietContent(_lacVietDocument);
-                }
-                else if (checkCollinsContent(word, proxyStr).Equals(FlashcardsGenerator.ConNotOk) || checkLacVietContent(word, proxyStr).Equals(FlashcardsGenerator.ConNotOk))
-                {
-                    return FlashcardsGenerator.ConNotOk;
-                }
-                else
-                {
-                    return FlashcardsGenerator.GenNotOk + " - " + word + "\r\n";
-                }
-            }
-            #endregion
-
-            _wordType = GetCollinsWordType(_collinsDocument);
-            _phonetic = GetCollinsPhonetic(_collinsDocument);
-            _collinsExample = GetCollinsExamples(_collinsDocument, _wrd);
-            _pron = GetCollinsPronunciation(_collinsDocument, proxyStr, "a[class=hwd_sound sound audio_play_button]");
-            _thumb = GetCollinsImages(_collinsDocument, proxyStr, "", "");
-            _img = _thumb;  // The same result for _thumb and _img.
-            _tag = _wrd[0];
-            _copyRight = "This flashcard's content is get from the Collins & LacViet Online Dictionaries.<br>Thanks Collins & LacViet Dictionaries! Thanks for using!";
-
-            #region build string _ankiCard
-            if (language.Equals(FlashcardsGenerator.frToEng))
-            {
-                _copyRight = "This flashcard's content is get from the Collins Dictionary.<br>Thanks Collins Dictionary! Thanks for using!";
-                _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _collinsExample + "\t" + _pron + "\t" + _thumb + "\t" + _img + "\t" + _collinsContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
-            }
-            else if (language.Equals(FlashcardsGenerator.frToViet))
-            {
-                _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _collinsExample + "\t" + _pron + "\t" + _thumb + "\t" + _img + "\t" + _lacVietContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
-            }
-            else if (language.Equals(FlashcardsGenerator.frToEngViet))
-            {
-                _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _collinsExample + "\t" + _pron + "\t" + _thumb + "\t" + _img + "\t" + _collinsContent + "\t" + _lacVietContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
-            }
-            else if (language.Equals(FlashcardsGenerator.frToVietEng))
-            {
-                _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _collinsExample + "\t" + _pron + "\t" + _thumb + "\t" + _img + "\t" + _lacVietContent + "\t" + _collinsContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
-            }
-            #endregion
-
-            return _ankiCard;
-        }
-
-        private string checkCollinsContent(string word, string proxyStr)
-        {
-            string collinsUrl = "";
-            if (word.Contains("www.collinsdictionary.com"))
-            {
-                collinsUrl = word;
-            }
-            else
-            {
-                word = word.Replace(" ", "%20");
-                collinsUrl = "http://www.collinsdictionary.com/search?q=" + word + "&dataset=french-english";
-            }
-
-            StreamReader st = _basicFunctions.HttpGetRequestViaProxy(collinsUrl, proxyStr);
-            if (st == null)
+            else if (checkLacVietContent(word, proxyStr, language).Equals(FlashcardsGenerator.ConNotOk))
             {
                 return FlashcardsGenerator.ConNotOk;
             }
-
-            string collinsDoc = st.ReadToEnd();
-            CQ collinsDom = CsQuery.CQ.Create(collinsDoc);
-
-            string title = collinsDom["title"].Text();
-            if (title.Contains("CollinsDictionary.com | Collins Dictionaries - Free Online"))
+            else
             {
-                return FlashcardsGenerator.SpelNotOk;
+                return FlashcardsGenerator.GenNotOk + " - " + word + "\r\n";
             }
 
-            _wrd = _basicFunctions.GetElementText(collinsDom, "h1[class=orth h1_entry]", 0);
-            if (_wrd.Equals(""))
-            {
-                return FlashcardsGenerator.GenNotOk;
-            }
+            _phonetic = GetLacVietPhonetic(_lacVietDocument);
+            _lacVietExample = GetLacVietExamples(_lacVietDocument, _wrd);
+            _pron = GetLacVietPronunciation(_lacVietDocument, proxyStr, "embed");
+            _thumb = GetLacVietImages(_lacVietDocument, proxyStr, "", "");
+            _img = _thumb;  // The same result for _thumb and _img.
+            _tag = _wrd[0];
+            _copyRight = "This flashcard's content is get from the LacViet Online Dictionaries.<br>Thanks LacViet Dictionaries! Thanks for using!";
+            _ankiCard = _wrd + "\t" + _phonetic + "\t" + _lacVietExample + "\t" + _pron + "\t" + _thumb + "\t" + _img + "\t" + _lacVietContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
 
-            _wrd = _wrd.Replace("\r", "").Replace("\n", "");
-            _wrd = Regex.Replace(_wrd, "<span class=\\\"pron\\\">.*</span>", "");
-            _collinsDocument = collinsDom;
-
-            return FlashcardsGenerator.GenOk;
+            // _ankiCard = HttpUtility.HtmlDecode(_ankiCard);
+            return _ankiCard;
         }
 
-        private string checkLacVietContent(string word, string proxyStr)
+        private string checkLacVietContent(string word, string proxyStr, string language)
         {
             string lacVietUrl = "";
             if (word.Contains("tratu.coviet.vn"))
             {
                 lacVietUrl = word;
             }
-            else
+            else if (language.Contains(FlashcardsGenerator.vnToEng))
             {
                 word = word.Replace(" ", "+");
-                lacVietUrl = "http://tratu.coviet.vn/tu-dien-lac-viet.aspx?learn=hoc-tieng-phap&t=F-V&k=" + word;
+                lacVietUrl = "http://tratu.coviet.vn/tu-dien-lac-viet.aspx?learn=hoc-tieng-anh&t=V-A&k=" + word;
+            }
+            else if (language.Contains(FlashcardsGenerator.vnToFren))
+            {
+                word = word.Replace(" ", "+");
+                lacVietUrl = "http://tratu.coviet.vn/tu-dien-lac-viet.aspx?learn=hoc-tieng-anh&t=V-F&k=" + word;
             }
 
             CQ lacVietDom = "";
@@ -162,10 +84,16 @@ namespace FlashcardsGeneratorApplication
             string lacVietDoc = lacVietSt.ReadToEnd();
             lacVietDom = CsQuery.CQ.Create(lacVietDoc);
 
-            string lacVietTitle = lacVietDom["div[class=i p10]"].Text();
-            if (lacVietTitle.Contains("Dữ liệu đang được cập nhật"))
+            string lacVietResult = lacVietDom["div[class=i p10]"].Text();
+            if (lacVietResult.Contains("Dữ liệu đang được cập nhật"))
             {
                 return FlashcardsGenerator.SpelNotOk;
+            }
+
+            _wrd = _basicFunctions.GetElementText(lacVietDom, "div[class=w fl]", 0);
+            if (_wrd.Equals(""))
+            {
+                return FlashcardsGenerator.GenNotOk;
             }
 
             _lacVietDocument = lacVietDom;
@@ -173,52 +101,27 @@ namespace FlashcardsGeneratorApplication
             return FlashcardsGenerator.GenOk;
         }
 
-        private string GetCollinsWordType(CQ dom)
+        private string GetLacVietPhonetic(CQ dom)
         {
-            IDomObject wordTypeElements = _basicFunctions.GetElementObject(dom, "span[class=pos]", 0);
-            if (wordTypeElements == null)
-                return "There is no example for this word.";
+            string phonetic = _basicFunctions.GetElementText(dom, "div[class=p5l fl cB]", 0);
 
-            string wordTypes = "(" + wordTypeElements.OuterHTML + ")&nbsp;";
-
-            for (int i = 1; i < 4; i++)
-            {
-                try
-                {
-                    wordTypes += "(" + _basicFunctions.GetElementObject(dom, "span[class=pos]", i).OuterHTML + ")&nbsp;";
-                }
-                catch (Exception e)
-                {
-                    //Console.WriteLine(e);
-                }
-            }
-
-            return wordTypes;
+            //return phonetic == "" ? "There is no phonetic for this word!" : phonetic
+            return phonetic;
         }
 
-        private string GetCollinsPhonetic(CQ dom)
+        private string GetLacVietExamples(CQ dom, string word)
         {
-            string phonetic = _basicFunctions.GetElementText(dom, "span[class=pron]", 0);
-            phonetic = phonetic.Replace("\r", "").Replace("\n", "");
-            phonetic = Regex.Replace(phonetic, "<span class=\\\"hwd_sound\\\">.*</span>", "");
-            phonetic = phonetic.Replace("(", "/").Replace(")", "/");
-
-            return phonetic == "" ? "There is no phonetic for this word!" : phonetic;
-        }
-
-        private string GetCollinsExamples(CQ dom, string word)
-        {
-            IDomObject exampleElements = _basicFunctions.GetElementObject(dom, "span[class=phr]", 0);
+            IDomObject exampleElements = _basicFunctions.GetElementObject(dom, "div[class=e]", 0);
             if (exampleElements == null)
                 return "There is no example for this word.";
 
             string examples = exampleElements.OuterHTML + "<br>";
 
-            for (int i = 1; i < 4; i++)
+            for (int i = 1; i < 2; i++)
             {
                 try
                 {
-                    examples += _basicFunctions.GetElementObject(dom, "span[class=phr]", i).OuterHTML + "<br>";
+                    examples += _basicFunctions.GetElementObject(dom, "div[class=e]", i).OuterHTML + "<br>";
                 }
                 catch (Exception e)
                 {
@@ -226,25 +129,23 @@ namespace FlashcardsGeneratorApplication
                 }
             }
 
+            examples = examples.ToLower();
             examples = examples.Replace(word, "{{c1::" + word + "}}");
-            examples = "<link type=\"text/css\" rel=\"stylesheet\" href=\"main.css\">" + examples;
+            examples = "<link type=\"text/css\" rel=\"stylesheet\" href=\"home.css\">" + examples;
 
             return examples;
         }
 
-        private string GetCollinsPronunciation(CQ dom, string proxyStr, string selector)
+        private string GetLacVietPronunciation(CQ dom, string proxyStr, string selector)
         {
-            string pro_link = _basicFunctions.GetElementAttributeValue(dom, selector, 0, "data-src-mp3");
+            string pro_link = _basicFunctions.GetElementAttributeValue(dom, selector, 0, "flashvars");
 
             if (pro_link == "")
             {
                 return "";
             }
-            else
-            {
-                pro_link = "http://www.collinsdictionary.com" + pro_link;
-            }
 
+            pro_link = pro_link.Replace("file=", "").Replace("&autostart=false", "");
             string pro_name = pro_link.Split('/')[pro_link.Split('/').Length - 1];
 
             Stream input = _basicFunctions.HttpGetRequestViaProxy(pro_link, proxyStr).BaseStream;
@@ -255,7 +156,7 @@ namespace FlashcardsGeneratorApplication
             return "[sound:" + pro_name + "]";
         }
 
-        private string GetCollinsImages(CQ dom, string proxyStr, string selector, string attr)
+        private string GetLacVietImages(CQ dom, string proxyStr, string selector, string attr)
         {
             string img_link = _basicFunctions.GetElementAttributeValue(dom, selector, 0, attr);
 
@@ -273,28 +174,13 @@ namespace FlashcardsGeneratorApplication
             return "<img src=\"" + img_name + "\"/>";
         }
 
-        private string GetCollinsContent(CQ dom)
-        {
-            IDomObject collinsContentElement = _basicFunctions.GetElementObject(dom, "div.homograph-entry", 0);
-            string collinsContent =
-                "<html>" + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">" +
-                "<link type=\"text/css\" rel=\"stylesheet\" href=\"main.css\">" +
-                "<link type=\"text/css\" rel=\"stylesheet\" href=\"responsive.css\">" +
-                "<div class=\"responsive_entry_center_wrap\">" + collinsContentElement.OuterHTML + "</div>" + "</html>";
-
-            collinsContent = collinsContent.Replace("\t", "");
-            collinsContent = collinsContent.Replace("\r", "");
-            collinsContent = collinsContent.Replace("\n", "");
-            return collinsContent;
-        }
-
         private string GetLacVietContent(CQ dom)
         {
             IDomObject lacVietContentElement = _basicFunctions.GetElementObject(dom, "#ctl00_ContentPlaceHolderMain_cnt_dict", 0);
 
             string lacVietContent =
             "<html>" + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">" +
-            "<link type=\"text/css\" rel=\"stylesheet\" href=\"main.css\">" +
+            "<link type=\"text/css\" rel=\"stylesheet\" href=\"home.css\">" +
             "<link type=\"text/css\" rel=\"stylesheet\" href=\"responsive.css\">" +
             "<div class=\"responsive_entry_center_wrap\">" + lacVietContentElement.OuterHTML + "</div>" + "</html>";
 
@@ -302,7 +188,10 @@ namespace FlashcardsGeneratorApplication
             lacVietContent = lacVietContent.Replace("\r", "");
             lacVietContent = lacVietContent.Replace("\n", "");
 
-            lacVietContent = HttpUtility.HtmlDecode(lacVietContent);
+            lacVietContent = Regex.Replace(lacVietContent, "<div class=\"p5l fl\".*?</div>", "");
+            lacVietContent = Regex.Replace(lacVietContent, "<div class=\"p3l fl m3t\">.*?</div>", "");
+            lacVietContent = lacVietContent.Replace("<div class=\"cgach p5lr fl\">|</div>", "");
+
             return lacVietContent;
         }
     }

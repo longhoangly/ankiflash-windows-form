@@ -13,6 +13,7 @@
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <NuGetPackageImportStamp>6048d26a</NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
     <PublishUrl>C:\Users\Administrator\Desktop\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,7 +30,6 @@
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -92,7 +92,6 @@
     </Compile>
     <Compile Include="FrenchFlashcards.cs" />
     <Compile Include="MainProcess.cs" />
-    <Compile Include="Notification.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VietnameseFlashcards.cs" />
@@ -119,6 +118,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Resources\[en]multiformABCDEFGHLONGLEE123.apkg" />
+    <None Include="Resources\[en]singleformABCDEFGHLONGLEE123.apkg" />
+    <None Include="Resources\[fr]multiformABCDEFGHLONGLEE123.apkg" />
+    <None Include="Resources\[fr]singleformABCDEFGHLONGLEE123.apkg" />
+    <None Include="Resources\[vn]singleformABCDEFGHLONGLEE123.apkg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -177,6 +181,11 @@
   <ItemGroup>
     <Content Include="anki.ico" />
     <Content Include="FodyWeavers.xml" />
+    <None Include="Resources\home.css" />
+    <None Include="Resources\Icon_7_4.png" />
+    <None Include="Resources\Icon_6_7.png" />
+    <None Include="Resources\main.css" />
+    <None Include="Resources\icons-right.png" />
     <None Include="Resources\anki.png" />
     <None Include="Resources\UnitTestProject1.csproj.FileListAbsolute.txt" />
     <None Include="Resources\note_type_single_language.txt" />

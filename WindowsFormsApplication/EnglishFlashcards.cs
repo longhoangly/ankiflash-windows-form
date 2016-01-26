@@ -94,6 +94,7 @@ namespace FlashcardsGeneratorApplication
             }
             #endregion
 
+            //_ankiCard = HttpUtility.HtmlDecode(_ankiCard);
             return _ankiCard;
         }
 
@@ -191,8 +192,8 @@ namespace FlashcardsGeneratorApplication
             string phoneticBrE = _basicFunctions.GetElementText(dom, "span[class=phon]", 0);
             string phoneticNAmE = _basicFunctions.GetElementText(dom, "span[class=phon]", 1);
 
-            if (phoneticBrE == "" && phoneticNAmE == "")
-                return "There is no phonetic for this word!";
+            //if (phoneticBrE == "" && phoneticNAmE == "")
+            //    return "There is no phonetic for this word!";
 
             string phonetic = phoneticBrE + phoneticNAmE;
 
@@ -295,7 +296,6 @@ namespace FlashcardsGeneratorApplication
             sohaContent = sohaContent.Replace("\r", "");
             sohaContent = sohaContent.Replace("\n", "");
 
-            sohaContent = HttpUtility.HtmlDecode(sohaContent);
             return sohaContent;
         }
     }

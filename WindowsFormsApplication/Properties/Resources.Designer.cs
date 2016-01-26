@@ -61,6 +61,46 @@ namespace FlashcardsGeneratorApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] _en_multiformABCDEFGHLONGLEE123 {
+            get {
+                object obj = ResourceManager.GetObject("_en_multiformABCDEFGHLONGLEE123", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] _en_singleformABCDEFGHLONGLEE123 {
+            get {
+                object obj = ResourceManager.GetObject("_en_singleformABCDEFGHLONGLEE123", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] _fr_multiformABCDEFGHLONGLEE123 {
+            get {
+                object obj = ResourceManager.GetObject("_fr_multiformABCDEFGHLONGLEE123", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] _fr_singleformABCDEFGHLONGLEE123 {
+            get {
+                object obj = ResourceManager.GetObject("_fr_singleformABCDEFGHLONGLEE123", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /*------------------------------------*\
         ///    GLOBAL STYLES
         ///\*------------------------------------*/
@@ -71,6 +111,16 @@ namespace FlashcardsGeneratorApplication.Properties {
         public static string _interface {
             get {
                 return ResourceManager.GetString("_interface", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        public static byte[] _vn_singleformABCDEFGHLONGLEE123 {
+            get {
+                object obj = ResourceManager.GetObject("_vn_singleformABCDEFGHLONGLEE123", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
@@ -175,6 +225,44 @@ namespace FlashcardsGeneratorApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to body {padding:0px;margin:0px;font-family:Arial; font-size:10pt; font-weight:normal;background-color:#e2e2e2;}
+        ///p, ul { margin-bottom: 20px;line-height: 1.6em;}
+        ///header,footer,nav,section {display: block;}
+        ///h1, h2, h3, h4, h5, h6 {font-size: 10pt; font-family:Arial; color: #000;}
+        ///h1 {font-size: 11pt; margin:0px; padding:0px;}
+        ///h2 {font-size: 11pt;font-weight:normal;padding-bottom: 0; margin-bottom: 0; }
+        ///
+        ///h3 {font-weight:normal;padding-bottom: 0; margin-bottom: 0; line-height:10px}
+        ///h4 {font-size: 9pt;}
+        ///h [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string home {
+            get {
+                return ResourceManager.GetString("home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_6_7 {
+            get {
+                object obj = ResourceManager.GetObject("Icon_6_7", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap Icon_7_4 {
+            get {
+                object obj = ResourceManager.GetObject("Icon_7_4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap icon_academic {
@@ -257,10 +345,29 @@ namespace FlashcardsGeneratorApplication.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap icons_right {
+            get {
+                object obj = ResourceManager.GetObject("icons_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap login_bg {
             get {
                 object obj = ResourceManager.GetObject("login_bg", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline;box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;-webkit-box-sizing:border-box}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}ins{background-color:#ff9;color:#000;text-decoration:none}mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}del{text-decoration:line-through}abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}table{border-collapse:col [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string main {
+            get {
+                return ResourceManager.GetString("main", resourceCulture);
             }
         }
         
@@ -281,16 +388,6 @@ namespace FlashcardsGeneratorApplication.Properties {
             get {
                 object obj = ResourceManager.GetObject("minus_section", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] multiformABCDEFGHLONGLEE {
-            get {
-                object obj = ResourceManager.GetObject("multiformABCDEFGHLONGLEE", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         
@@ -408,16 +505,6 @@ namespace FlashcardsGeneratorApplication.Properties {
             get {
                 object obj = ResourceManager.GetObject("search_mag", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] singleformABCDEFGHLONGLEE {
-            get {
-                object obj = ResourceManager.GetObject("singleformABCDEFGHLONGLEE", resourceCulture);
-                return ((byte[])(obj));
             }
         }
         

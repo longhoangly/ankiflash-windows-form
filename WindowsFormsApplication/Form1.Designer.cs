@@ -32,6 +32,7 @@
             this.btnOpen = new System.Windows.Forms.Button();
             this.txtInputPath = new System.Windows.Forms.TextBox();
             this.groupBoxInput = new System.Windows.Forms.GroupBox();
+            this.chkBoxClipboard = new System.Windows.Forms.CheckBox();
             this.labelWords = new System.Windows.Forms.Label();
             this.txtNumInput = new System.Windows.Forms.TextBox();
             this.txtInput = new System.Windows.Forms.RichTextBox();
@@ -84,6 +85,7 @@
             // 
             // groupBoxInput
             // 
+            this.groupBoxInput.Controls.Add(this.chkBoxClipboard);
             this.groupBoxInput.Controls.Add(this.labelWords);
             this.groupBoxInput.Controls.Add(this.txtNumInput);
             this.groupBoxInput.Controls.Add(this.txtInput);
@@ -95,6 +97,17 @@
             this.groupBoxInput.TabIndex = 3;
             this.groupBoxInput.TabStop = false;
             this.groupBoxInput.Text = "Input";
+            // 
+            // chkBoxClipboard
+            // 
+            this.chkBoxClipboard.AutoSize = true;
+            this.chkBoxClipboard.Location = new System.Drawing.Point(7, 55);
+            this.chkBoxClipboard.Name = "chkBoxClipboard";
+            this.chkBoxClipboard.Size = new System.Drawing.Size(151, 17);
+            this.chkBoxClipboard.TabIndex = 16;
+            this.chkBoxClipboard.Text = "Copy words from Clipboard";
+            this.chkBoxClipboard.UseVisualStyleBackColor = true;
+            this.chkBoxClipboard.CheckedChanged += new System.EventHandler(this.chkBoxClipboard_CheckedChanged);
             // 
             // labelWords
             // 
@@ -392,8 +405,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Flashcards Generator";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Text = "Flashcards Generator v8";
             this.groupBoxInput.ResumeLayout(false);
             this.groupBoxInput.PerformLayout();
             this.groupBoxOutput.ResumeLayout(false);
@@ -434,6 +446,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtFailedNum;
+        private System.Windows.Forms.CheckBox chkBoxClipboard;
     }
 }
 
