@@ -225,7 +225,7 @@ namespace FlashcardsGeneratorApplication.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to body {padding:0px;margin:0px;font-family:Arial; font-size:10pt; font-weight:normal;background-color:#e2e2e2;}
+        ///   Looks up a localized string similar to body {padding:0px;margin:0px;font-family:Arial; font-size:10pt; font-weight:normal;background-color:#ecf5ff;}
         ///p, ul { margin-bottom: 20px;line-height: 1.6em;}
         ///header,footer,nav,section {display: block;}
         ///h1, h2, h3, h4, h5, h6 {font-size: 10pt; font-family:Arial; color: #000;}

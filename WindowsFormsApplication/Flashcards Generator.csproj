@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FlashcardsGeneratorApplication</RootNamespace>
-    <AssemblyName>Flashcards Generator v8.1</AssemblyName>
+    <AssemblyName>Flashcards Generator v8.2</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -130,14 +130,12 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\multiformABCDEFGHLONGLEE.apkg" />
     <None Include="Resources\plus_section.jpg" />
     <None Include="Resources\minus_section.jpg" />
     <None Include="Resources\main_min.css" />
     <None Include="Resources\hidden.jpg" />
     <None Include="Resources\external.png" />
     <None Include="Resources\dot.jpg" />
-    <None Include="Resources\singleformABCDEFGHLONGLEE.apkg" />
     <None Include="Resources\usonly-audio.png" />
     <None Include="Resources\search-mag.png" />
     <None Include="Resources\responsive.css" />
@@ -187,7 +185,6 @@
     <None Include="Resources\main.css" />
     <None Include="Resources\icons-right.png" />
     <None Include="Resources\anki.png" />
-    <None Include="Resources\UnitTestProject1.csproj.FileListAbsolute.txt" />
     <None Include="Resources\note_type_single_language.txt" />
     <None Include="Resources\front_single_language.html" />
     <None Include="Resources\css_single_language.css" />

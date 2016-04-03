@@ -220,12 +220,6 @@
   <data name="main" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\main.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-  <data name="_en_multiformABCDEFGHLONGLEE123" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\[en]multiformABCDEFGHLONGLEE123.apkg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="_en_singleformABCDEFGHLONGLEE123" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\[en]singleformABCDEFGHLONGLEE123.apkg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="_fr_multiformABCDEFGHLONGLEE123" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\[fr]multiformABCDEFGHLONGLEE123.apkg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -234,5 +228,11 @@
   </data>
   <data name="_vn_singleformABCDEFGHLONGLEE123" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\[vn]singleformABCDEFGHLONGLEE123.apkg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_en_multiformABCDEFGHLONGLEE123" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\[en]multiformABCDEFGHLONGLEE123.apkg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_en_singleformABCDEFGHLONGLEE123" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\[en]singleformABCDEFGHLONGLEE123.apkg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

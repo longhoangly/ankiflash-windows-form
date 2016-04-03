@@ -360,58 +360,58 @@ namespace FlashcardsGeneratorApplication
             input2.Save(layout + @"\btn-wordlist.png");
 
             input2 = Properties.Resources.usonly_audio;
-            input2.Save(layout + @"\usonly_audio.png");
+            input2.Save(layout + @"\usonly-audio.png");
 
             input2 = Properties.Resources.enlarge_img;
-            input2.Save(layout + @"\enlarge_img.png");
+            input2.Save(layout + @"\enlarge-img.png");
 
             input2 = Properties.Resources.entry_arrow;
-            input2.Save(layout + @"\entry_arrow.png");
+            input2.Save(layout + @"\entry-arrow.png");
 
             input2 = Properties.Resources.entry_bullet;
-            input2.Save(layout + @"\entry_bullet.png");
+            input2.Save(layout + @"\entry-bullet.png");
 
             input2 = Properties.Resources.entry_sqbullet;
-            input2.Save(layout + @"\entry_sqbullet.png");
+            input2.Save(layout + @"\entry-sqbullet.png");
 
             input2 = Properties.Resources.go_to_top;
-            input2.Save(layout + @"\go_to_top.png");
+            input2.Save(layout + @"\go-to-top.png");
 
             input2 = Properties.Resources.icon_academic;
-            input2.Save(layout + @"\icon_academic.png");
+            input2.Save(layout + @"\icon-academic.png");
 
             input2 = Properties.Resources.icon_audio_bre;
-            input2.Save(layout + @"\icon_audio_bre.png");
+            input2.Save(layout + @"\icon-audio-bre.png");
 
             input2 = Properties.Resources.icon_audio_name;
-            input2.Save(layout + @"\icon_audio_name.png");
+            input2.Save(layout + @"\icon-audio-name.png");
 
             input2 = Properties.Resources.icon_ox3000;
-            input2.Save(layout + @"\icon_ox3000.png");
+            input2.Save(layout + @"\icon-ox3000.png");
 
             input2 = Properties.Resources.icon_plus_minus;
-            input2.Save(layout + @"\icon_plus_minus.png");
+            input2.Save(layout + @"\icon-plus-minus.png");
 
             input2 = Properties.Resources.icon_plus_minus_grey;
-            input2.Save(layout + @"\icon_plus_minus_grey.png");
+            input2.Save(layout + @"\icon-plus-minus-grey.png");
 
             input2 = Properties.Resources.icon_plus_minus_orange;
-            input2.Save(layout + @"\icon_plus_minus_orange.png");
+            input2.Save(layout + @"\icon-plus-minus-orange.png");
 
             input2 = Properties.Resources.icon_select_arrow_circle_blue;
-            input2.Save(layout + @"\icon_select_arrow_circle_blue.png");
+            input2.Save(layout + @"\icon-select-arrow-circle-blue.png");
 
             input2 = Properties.Resources.login_bg;
-            input2.Save(layout + @"\login_bg.png");
+            input2.Save(layout + @"\login-bg.png");
 
             input2 = Properties.Resources.pvarr;
             input2.Save(layout + @"\pvarr.png");
 
             input2 = Properties.Resources.pvarr_blue;
-            input2.Save(layout + @"\pvarr_blue.png");
+            input2.Save(layout + @"\pvarr-blue.png");
 
             input2 = Properties.Resources.search_mag;
-            input2.Save(layout + @"\search_mag.png");
+            input2.Save(layout + @"\search-mag.png");
             #endregion
 
             #region Soha folder
@@ -457,10 +457,10 @@ namespace FlashcardsGeneratorApplication
             input2 = Properties.Resources.anki;
             input2.Save(image + @"\anki.png");
 
-            Byte[] input3 = Properties.Resources._en_multiformABCDEFGHLONGLEE123;
+            Byte[] input3 = Properties.Resources._en_singleformABCDEFGHLONGLEE123;
             File.WriteAllBytes(@".\AnkiFlashcards\[en]singleformABCDEFGHLONGLEE123.apkg", input3);
 
-            input3 = Properties.Resources._en_singleformABCDEFGHLONGLEE123;
+            input3 = Properties.Resources._en_multiformABCDEFGHLONGLEE123;
             File.WriteAllBytes(@".\AnkiFlashcards\[en]multiformABCDEFGHLONGLEE123.apkg", input3);
 
             input3 = Properties.Resources._fr_multiformABCDEFGHLONGLEE123;
