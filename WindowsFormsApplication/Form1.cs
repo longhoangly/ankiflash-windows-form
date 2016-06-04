@@ -18,23 +18,19 @@ namespace FlashcardsGeneratorApplication
         private string[] _words;
         private List<string> _successResult;
         private List<string> _failureResult;
-        private Boolean canceled = false;
+        private bool _canceled = false;
 
-        private UTF8Encoding _utf8WithoutBom = new UTF8Encoding(false);
-        private FlashcardsGenerator flashcardsGenerator = new FlashcardsGenerator();
-
-        #region Copy Clipboard
-        [DllImport("User32.dll", CharSet = CharSet.Auto)]
-        public static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
+        private readonly UTF8Encoding _utf8WithoutBom = new UTF8Encoding(false);
+        private readonly FlashcardsGenerator _flashcardsGenerator = new FlashcardsGenerator();
 
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
-        public static extern bool ChangeClipboardChain(IntPtr hWndRemove, IntPtr hWndNewNext);
+        private static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
 
-        // WM_DRAWCLIPBOARD message
-        private const int WM_DRAWCLIPBOARD = 0x0308;
-        // Our variable that will hold the value to identify the next window in the clipboard viewer chain.
+        [DllImport("User32.dll", CharSet = CharSet.Auto)]
+        private static extern bool ChangeClipboardChain(IntPtr hWndRemove, IntPtr hWndNewNext);
+
+        private const int WmDrawclipboard = 0x0308;
         private IntPtr _clipboardViewerNext;
-        #endregion
 
         public MainForm()
         {
@@ -46,6 +42,8 @@ namespace FlashcardsGeneratorApplication
             backgroundWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(backgroundWorker_RunWorkerCompleted);
             backgroundWorker.WorkerReportsProgress = true;
             backgroundWorker.WorkerSupportsCancellation = true;
+
+            FormClosing += Form1_FormClosing;
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
@@ -135,21 +133,21 @@ namespace FlashcardsGeneratorApplication
                 if (backgroundWorker.CancellationPending)
                 {
                     e.Cancel = true;
-                    canceled = true;
+                    _canceled = true;
                     return;
                 }
 
-                _ankiCard = flashcardsGenerator.GenerateFlashCards(_words[i].Replace("\r", "").Replace("\n", ""), _proxy, _language);
-                if (_ankiCard.Contains(FlashcardsGenerator.ConNotOk))
+                _ankiCard = _flashcardsGenerator.GenerateFlashCards(_words[i].Replace("\r", "").Replace("\n", ""), _proxy, _language);
+                if (_ankiCard.Contains(FlashcardsGenerator.CONNECTION_FAILED))
                 {
                     MessageBox.Show("Cannot get dictionnary's content.\n" +
                                     "Please check your connection.", "Failed");
                     return;
                 }
 
-                if (_ankiCard.Contains(FlashcardsGenerator.GenNotOk))
+                if (_ankiCard.Contains(FlashcardsGenerator.GENERATING_FAILED))
                 {
-                    _failureResult.Add(_ankiCard.Replace(FlashcardsGenerator.GenNotOk + " - ", ""));
+                    _failureResult.Add(_ankiCard.Replace(FlashcardsGenerator.GENERATING_FAILED + " - ", ""));
                 }
                 else
                 {
@@ -162,9 +160,9 @@ namespace FlashcardsGeneratorApplication
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             proBar.Value = e.ProgressPercentage;
-            if (_ankiCard.Contains(FlashcardsGenerator.GenNotOk))
+            if (_ankiCard.Contains(FlashcardsGenerator.GENERATING_FAILED))
             {
-                txtFailed.Text += _ankiCard.Replace(FlashcardsGenerator.GenNotOk + " - ", "");
+                txtFailed.Text += _ankiCard.Replace(FlashcardsGenerator.GENERATING_FAILED + " - ", "");
             }
             else
             {
@@ -177,7 +175,7 @@ namespace FlashcardsGeneratorApplication
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             RestoreLayout();
-            if (!canceled)
+            if (!_canceled)
             {
                 MessageBox.Show("Completed.\n", "Info");
             }
@@ -334,6 +332,7 @@ namespace FlashcardsGeneratorApplication
             string layout = @".\AnkiFlashcards\oxlayout";
             string soha = @".\AnkiFlashcards\soha";
             string lacViet = @".\AnkiFlashcards\lacViet";
+            string cambridge = @".\AnkiFlashcards\cambridge";
             string collins = @".\AnkiFlashcards\collins";
             string sound = @".\AnkiFlashcards\sounds";
             string image = @".\AnkiFlashcards\images";
@@ -342,6 +341,7 @@ namespace FlashcardsGeneratorApplication
             ChecknCreateFolders(layout);
             ChecknCreateFolders(soha);
             ChecknCreateFolders(lacViet);
+            ChecknCreateFolders(cambridge);
             ChecknCreateFolders(collins);
             ChecknCreateFolders(sound);
             ChecknCreateFolders(image);
@@ -453,6 +453,14 @@ namespace FlashcardsGeneratorApplication
             input2.Save(collins + @"\Icon_7_4.png");
             #endregion
 
+            #region Cambridge folder
+            input = Properties.Resources.common;
+            File.WriteAllText(cambridge + @"\common.css", input);
+
+            input2 = Properties.Resources.star;
+            input2.Save(cambridge + @"\star.png");
+            #endregion
+
             #region Anki images & Note Type
             input2 = Properties.Resources.anki;
             input2.Save(image + @"\anki.png");
@@ -483,20 +491,18 @@ namespace FlashcardsGeneratorApplication
         {
             base.WndProc(ref m);    // Process the message 
 
-            if (m.Msg == WM_DRAWCLIPBOARD)
+            if (m.Msg == WmDrawclipboard)
             {
                 IDataObject iData = Clipboard.GetDataObject();      // Clipboard's data
 
                 if (iData.GetDataPresent(DataFormats.Text))
                 {
                     string text = (string)iData.GetData(DataFormats.Text);      // Clipboard text
-                    // do something with it
                     txtInput.Text += text + "\r\n";
                 }
                 else if (iData.GetDataPresent(DataFormats.Bitmap))
                 {
                     Bitmap image = (Bitmap)iData.GetData(DataFormats.Bitmap);   // Clipboard image
-                    // do something with it
                 }
             }
         }

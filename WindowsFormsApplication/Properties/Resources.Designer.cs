@@ -145,6 +145,15 @@ namespace FlashcardsGeneratorApplication.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to *{margin:0;padding:0;border:0;text-indent:0}html{overflow-y:scroll}input,textarea,button{border:solid 1px #aaa}button,a{cursor:pointer}a,a:link,a:visited,a:active{color:inherit;text-decoration:none;-webkit-transition-property:background,border;-webkit-transition-duration:250ms}li{list-style-type:none}h1,h2,h3,h4,h5,h6{font-size:1em}body,select,input,textarea,optgroup,option,button{font-size:12px;font-family:Arial,Helvetica,sans-serif}body{background-color:#eff4f7}table{border-spacing:0;border-collapse:colla [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string common {
+            get {
+                return ResourceManager.GetString("common", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         public static System.Drawing.Bitmap dot {
@@ -504,6 +513,16 @@ namespace FlashcardsGeneratorApplication.Properties {
         public static System.Drawing.Bitmap search_mag {
             get {
                 object obj = ResourceManager.GetObject("search_mag", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap star {
+            get {
+                object obj = ResourceManager.GetObject("star", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

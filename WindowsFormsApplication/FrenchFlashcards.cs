@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using CsQuery;
-using Mono.Web;
 
 namespace FlashcardsGeneratorApplication
 {
@@ -33,35 +28,35 @@ namespace FlashcardsGeneratorApplication
         public string GenerateFrenchFlashCards(string word, string proxyStr, string language)
         {
             #region Get Input & Check Condition
-            if (language.Equals(FlashcardsGenerator.frToEng))
+            if (language.Equals(FlashcardsGenerator.FR2EN))
             {
-                if (checkCollinsContent(word, proxyStr).Equals(FlashcardsGenerator.GenOk))
+                if (checkCollinsContent(word, proxyStr).Equals(FlashcardsGenerator.GENERATING_SUCCESS))
                 {
                     _collinsContent = GetCollinsContent(_collinsDocument);
                 }
-                else if (checkCollinsContent(word, proxyStr).Equals(FlashcardsGenerator.ConNotOk))
+                else if (checkCollinsContent(word, proxyStr).Equals(FlashcardsGenerator.CONNECTION_FAILED))
                 {
-                    return FlashcardsGenerator.ConNotOk;
+                    return FlashcardsGenerator.CONNECTION_FAILED;
                 }
                 else
                 {
-                    return FlashcardsGenerator.GenNotOk + " - " + word + "\r\n";
+                    return FlashcardsGenerator.GENERATING_FAILED + " - " + word + "\r\n";
                 }
             }
             else
             {
-                if (checkCollinsContent(word, proxyStr).Equals(FlashcardsGenerator.GenOk) && checkLacVietContent(word, proxyStr).Equals(FlashcardsGenerator.GenOk))
+                if (checkCollinsContent(word, proxyStr).Equals(FlashcardsGenerator.GENERATING_SUCCESS) && checkLacVietContent(word, proxyStr).Equals(FlashcardsGenerator.GENERATING_SUCCESS))
                 {
                     _collinsContent = GetCollinsContent(_collinsDocument);
                     _lacVietContent = GetLacVietContent(_lacVietDocument);
                 }
-                else if (checkCollinsContent(word, proxyStr).Equals(FlashcardsGenerator.ConNotOk) || checkLacVietContent(word, proxyStr).Equals(FlashcardsGenerator.ConNotOk))
+                else if (checkCollinsContent(word, proxyStr).Equals(FlashcardsGenerator.CONNECTION_FAILED) || checkLacVietContent(word, proxyStr).Equals(FlashcardsGenerator.CONNECTION_FAILED))
                 {
-                    return FlashcardsGenerator.ConNotOk;
+                    return FlashcardsGenerator.CONNECTION_FAILED;
                 }
                 else
                 {
-                    return FlashcardsGenerator.GenNotOk + " - " + word + "\r\n";
+                    return FlashcardsGenerator.GENERATING_FAILED + " - " + word + "\r\n";
                 }
             }
             #endregion
@@ -76,20 +71,20 @@ namespace FlashcardsGeneratorApplication
             _copyRight = "This flashcard's content is get from the Collins & LacViet Online Dictionaries.<br>Thanks Collins & LacViet Dictionaries! Thanks for using!";
 
             #region build string _ankiCard
-            if (language.Equals(FlashcardsGenerator.frToEng))
+            if (language.Equals(FlashcardsGenerator.FR2EN))
             {
                 _copyRight = "This flashcard's content is get from the Collins Dictionary.<br>Thanks Collins Dictionary! Thanks for using!";
                 _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _collinsExample + "\t" + _pron + "\t" + _thumb + "\t" + _img + "\t" + _collinsContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
             }
-            else if (language.Equals(FlashcardsGenerator.frToViet))
+            else if (language.Equals(FlashcardsGenerator.FR2VI))
             {
                 _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _collinsExample + "\t" + _pron + "\t" + _thumb + "\t" + _img + "\t" + _lacVietContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
             }
-            else if (language.Equals(FlashcardsGenerator.frToEngViet))
+            else if (language.Equals(FlashcardsGenerator.FR2EN_VI))
             {
                 _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _collinsExample + "\t" + _pron + "\t" + _thumb + "\t" + _img + "\t" + _collinsContent + "\t" + _lacVietContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
             }
-            else if (language.Equals(FlashcardsGenerator.frToVietEng))
+            else if (language.Equals(FlashcardsGenerator.FR2VI_EN))
             {
                 _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _collinsExample + "\t" + _pron + "\t" + _thumb + "\t" + _img + "\t" + _lacVietContent + "\t" + _collinsContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
             }
@@ -115,7 +110,7 @@ namespace FlashcardsGeneratorApplication
             StreamReader st = _basicFunctions.HttpGetRequestViaProxy(collinsUrl, proxyStr);
             if (st == null)
             {
-                return FlashcardsGenerator.ConNotOk;
+                return FlashcardsGenerator.CONNECTION_FAILED;
             }
 
             string collinsDoc = st.ReadToEnd();
@@ -124,20 +119,20 @@ namespace FlashcardsGeneratorApplication
             string title = collinsDom["title"].Text();
             if (title.Contains("CollinsDictionary.com | Collins Dictionaries - Free Online"))
             {
-                return FlashcardsGenerator.SpelNotOk;
+                return FlashcardsGenerator.SPELLING_FAILED;
             }
 
             _wrd = _basicFunctions.GetElementText(collinsDom, "h1[class=orth h1_entry]", 0);
             if (_wrd.Equals(""))
             {
-                return FlashcardsGenerator.GenNotOk;
+                return FlashcardsGenerator.GENERATING_FAILED;
             }
 
             _wrd = _wrd.Replace("\r", "").Replace("\n", "");
             _wrd = Regex.Replace(_wrd, "<span class=\\\"pron\\\">.*</span>", "");
             _collinsDocument = collinsDom;
 
-            return FlashcardsGenerator.GenOk;
+            return FlashcardsGenerator.GENERATING_SUCCESS;
         }
 
         private string checkLacVietContent(string word, string proxyStr)
@@ -156,7 +151,7 @@ namespace FlashcardsGeneratorApplication
             StreamReader lacVietSt = _basicFunctions.HttpGetRequestViaProxy(lacVietUrl, proxyStr);
             if (lacVietSt == null)
             {
-                return FlashcardsGenerator.ConNotOk;
+                return FlashcardsGenerator.CONNECTION_FAILED;
             }
 
             string lacVietDoc = lacVietSt.ReadToEnd();
@@ -165,12 +160,12 @@ namespace FlashcardsGeneratorApplication
             string lacVietResult = lacVietDom["div[class=i p10]"].Text();
             if (lacVietResult.Contains("Dữ liệu đang được cập nhật"))
             {
-                return FlashcardsGenerator.SpelNotOk;
+                return FlashcardsGenerator.SPELLING_FAILED;
             }
 
             _lacVietDocument = lacVietDom;
 
-            return FlashcardsGenerator.GenOk;
+            return FlashcardsGenerator.GENERATING_SUCCESS;
         }
 
         private string GetCollinsWordType(CQ dom)

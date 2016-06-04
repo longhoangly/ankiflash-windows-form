@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using CsQuery;
-using Mono.Web;
 
 namespace FlashcardsGeneratorApplication
 {
@@ -29,17 +24,17 @@ namespace FlashcardsGeneratorApplication
 
         public string GeneratevietnameseFlashCards(string word, string proxyStr, string language)
         {
-            if (checkLacVietContent(word, proxyStr, language).Equals(FlashcardsGenerator.GenOk))
+            if (checkLacVietContent(word, proxyStr, language).Equals(FlashcardsGenerator.GENERATING_SUCCESS))
             {
                 _lacVietContent = GetLacVietContent(_lacVietDocument);
             }
-            else if (checkLacVietContent(word, proxyStr, language).Equals(FlashcardsGenerator.ConNotOk))
+            else if (checkLacVietContent(word, proxyStr, language).Equals(FlashcardsGenerator.CONNECTION_FAILED))
             {
-                return FlashcardsGenerator.ConNotOk;
+                return FlashcardsGenerator.CONNECTION_FAILED;
             }
             else
             {
-                return FlashcardsGenerator.GenNotOk + " - " + word + "\r\n";
+                return FlashcardsGenerator.GENERATING_FAILED + " - " + word + "\r\n";
             }
 
             _phonetic = GetLacVietPhonetic(_lacVietDocument);
@@ -62,12 +57,12 @@ namespace FlashcardsGeneratorApplication
             {
                 lacVietUrl = word;
             }
-            else if (language.Contains(FlashcardsGenerator.vnToEng))
+            else if (language.Contains(FlashcardsGenerator.VN2EN))
             {
                 word = word.Replace(" ", "+");
                 lacVietUrl = "http://tratu.coviet.vn/tu-dien-lac-viet.aspx?learn=hoc-tieng-anh&t=V-A&k=" + word;
             }
-            else if (language.Contains(FlashcardsGenerator.vnToFren))
+            else if (language.Contains(FlashcardsGenerator.VN2FR))
             {
                 word = word.Replace(" ", "+");
                 lacVietUrl = "http://tratu.coviet.vn/tu-dien-lac-viet.aspx?learn=hoc-tieng-anh&t=V-F&k=" + word;
@@ -76,7 +71,7 @@ namespace FlashcardsGeneratorApplication
             StreamReader lacVietSt = _basicFunctions.HttpGetRequestViaProxy(lacVietUrl, proxyStr);
             if (lacVietSt == null)
             {
-                return FlashcardsGenerator.ConNotOk;
+                return FlashcardsGenerator.CONNECTION_FAILED;
             }
 
             string lacVietDoc = lacVietSt.ReadToEnd();
@@ -85,18 +80,18 @@ namespace FlashcardsGeneratorApplication
             string lacVietResult = lacVietDom["div[class=i p10]"].Text();
             if (lacVietResult.Contains("Dữ liệu đang được cập nhật"))
             {
-                return FlashcardsGenerator.SpelNotOk;
+                return FlashcardsGenerator.SPELLING_FAILED;
             }
 
             _wrd = _basicFunctions.GetElementText(lacVietDom, "div[class=w fl]", 0);
             if (_wrd.Equals(""))
             {
-                return FlashcardsGenerator.GenNotOk;
+                return FlashcardsGenerator.GENERATING_FAILED;
             }
 
             _lacVietDocument = lacVietDom;
 
-            return FlashcardsGenerator.GenOk;
+            return FlashcardsGenerator.GENERATING_SUCCESS;
         }
 
         private string GetLacVietPhonetic(CQ dom)

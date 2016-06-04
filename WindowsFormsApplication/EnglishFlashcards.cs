@@ -1,15 +1,14 @@
 ﻿using System;
 using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading;
 using CsQuery;
-using Mono.Web;
 
 namespace FlashcardsGeneratorApplication
 {
     class EnglishFlashcards
     {
         private CQ _oxfDocument = "";
+        private CQ _camDocument = "";
         private CQ _lacVietDocument = "";
 
         private string _wrd = "";
@@ -20,6 +19,7 @@ namespace FlashcardsGeneratorApplication
         private string _proUs = "";
         private string _oxfContent = "";
         private string _lacVietContent = "";
+        private string _camContent = "";
         private string _thumb = "";
         private string _img = "";
         private string _ankiCard = "";
@@ -30,37 +30,53 @@ namespace FlashcardsGeneratorApplication
 
         public string GenerateEnglishFlashCards(string word, string proxyStr, string language)
         {
-            #region Get Input & Check Condition
-            if (language.Equals(FlashcardsGenerator.enToEng))
+            #region Get Input & Check Conditions
+            if (language.Equals(FlashcardsGenerator.EN2EN))
             {
-                if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.GenOk))
+                if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.GENERATING_SUCCESS))
                 {
                     _oxfContent = GetOxfordContent(_oxfDocument);
                 }
-                else if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.ConNotOk))
+                else if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.CONNECTION_FAILED))
                 {
-                    return FlashcardsGenerator.ConNotOk;
+                    return FlashcardsGenerator.CONNECTION_FAILED;
                 }
                 else
                 {
-                    return FlashcardsGenerator.GenNotOk + " - " + word + "\r\n";
+                    return FlashcardsGenerator.GENERATING_FAILED + " - " + word + "\r\n";
+                }
+            }
+            else if (language.Equals(FlashcardsGenerator.EN2CH))
+            {
+                if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.GENERATING_SUCCESS) && checkCambridgeContent(word, proxyStr).Equals(FlashcardsGenerator.GENERATING_SUCCESS))
+                {
+                    _oxfContent = GetOxfordContent(_oxfDocument);
+                    _camContent = GetCambridgeContent(_camDocument);
+                }
+                else if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.CONNECTION_FAILED) || checkCambridgeContent(word, proxyStr).Equals(FlashcardsGenerator.CONNECTION_FAILED))
+                {
+                    return FlashcardsGenerator.CONNECTION_FAILED;
+                }
+                else
+                {
+                    return FlashcardsGenerator.GENERATING_FAILED + " - " + word + "\r\n";
                 }
             }
             else
             {
-                if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.GenOk) && checkLacVietContent(word, proxyStr).Equals(FlashcardsGenerator.GenOk))
+                if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.GENERATING_SUCCESS) && checkLacVietContent(word, proxyStr).Equals(FlashcardsGenerator.GENERATING_SUCCESS))
                 {
                     _oxfContent = GetOxfordContent(_oxfDocument);
                     _lacVietContent = GetLacVietContent(_lacVietDocument);
                     _lacVietContent = _lacVietContent.Replace("<div id=\"firstHeading\"> </div>", "<div id=\"firstHeading\">" + word + "</div>");
                 }
-                else if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.ConNotOk) || checkLacVietContent(word, proxyStr).Equals(FlashcardsGenerator.ConNotOk))
+                else if (checkOxfordContent(word, proxyStr).Equals(FlashcardsGenerator.CONNECTION_FAILED) || checkLacVietContent(word, proxyStr).Equals(FlashcardsGenerator.CONNECTION_FAILED))
                 {
-                    return FlashcardsGenerator.ConNotOk;
+                    return FlashcardsGenerator.CONNECTION_FAILED;
                 }
                 else
                 {
-                    return FlashcardsGenerator.GenNotOk + " - " + word + "\r\n";
+                    return FlashcardsGenerator.GENERATING_FAILED + " - " + word + "\r\n";
                 }
             }
             #endregion
@@ -75,21 +91,25 @@ namespace FlashcardsGeneratorApplication
             _tag = _wrd[0];
             _copyRight = "This flashcard's content is get from the Oxford Advanced Learner's & LacViet Online Dictionaries.<br>Thanks Oxford & LacViet Dictionaries! Thanks for using!";
 
-            #region build string _ankiCard
-            if (language.Equals(FlashcardsGenerator.enToEng))
+            #region Build String _ankiCard
+            if (language.Equals(FlashcardsGenerator.EN2EN))
             {
                 _copyRight = "This flashcard's content is get from the Oxford Advanced Learner's Dictionary.<br>Thanks Oxford Dictionary! Thanks for using!";
                 _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _example + "\t" + _proUk + "\t" + _proUs + "\t" + _thumb + "\t" + _img + "\t" + _oxfContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
             }
-            else if (language.Equals(FlashcardsGenerator.enToViet))
+            else if (language.Equals(FlashcardsGenerator.EN2VI))
             {
                 _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _example + "\t" + _proUk + "\t" + _proUs + "\t" + _thumb + "\t" + _img + "\t" + _lacVietContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
             }
-            else if (language.Equals(FlashcardsGenerator.enToEngViet))
+            else if (language.Equals(FlashcardsGenerator.EN2CH))
+            {
+                _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _example + "\t" + _proUk + "\t" + _proUs + "\t" + _thumb + "\t" + _img + "\t" + _camContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
+            }
+            else if (language.Equals(FlashcardsGenerator.EN2EN_VI))
             {
                 _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _example + "\t" + _proUk + "\t" + _proUs + "\t" + _thumb + "\t" + _img + "\t" + _oxfContent + "\t" + _lacVietContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
             }
-            else if (language.Equals(FlashcardsGenerator.enToVietEng))
+            else if (language.Equals(FlashcardsGenerator.EN2VI_EN))
             {
                 _ankiCard = _wrd + "\t" + _wordType + "\t" + _phonetic + "\t" + _example + "\t" + _proUk + "\t" + _proUs + "\t" + _thumb + "\t" + _img + "\t" + _lacVietContent + "\t" + _oxfContent + "\t" + _copyRight + "\t" + _tag + "\r\n";
             }
@@ -102,7 +122,7 @@ namespace FlashcardsGeneratorApplication
         private string checkOxfordContent(string word, string proxyStr)
         {
             string oxfordUrl = "";
-            if (word.Contains("www.oxfordlearnersdictionaries.com"))
+            if (word.Contains("oxfordlearnersdictionaries.com"))
             {
                 oxfordUrl = word;
             }
@@ -115,60 +135,27 @@ namespace FlashcardsGeneratorApplication
             StreamReader st = _basicFunctions.HttpGetRequestViaProxy(oxfordUrl, proxyStr);
             if (st == null)
             {
-                return FlashcardsGenerator.ConNotOk;
+                return FlashcardsGenerator.CONNECTION_FAILED;
             }
 
             string doc = st.ReadToEnd();
-            CQ dom = CsQuery.CQ.Create(doc);
+            CQ dom = CQ.Create(doc);
 
             string title = dom["title"].Text();
             if (title.Contains("Did you spell it correctly?") || title.Contains("Oxford Learner's Dictionaries | Find the meanings"))
             {
-                return FlashcardsGenerator.SpelNotOk;
+                return FlashcardsGenerator.SPELLING_FAILED;
             }
 
             _wrd = _basicFunctions.GetElementText(dom, "h2", 0);
             if (_wrd.Equals(""))
             {
-                return FlashcardsGenerator.GenNotOk;
+                return FlashcardsGenerator.GENERATING_FAILED;
             }
 
             _oxfDocument = dom;
 
-            return FlashcardsGenerator.GenOk;
-        }
-
-        private string checkLacVietContent(string word, string proxyStr)
-        {
-            string lacVietUrl = "";
-            if (word.Contains("tratu.coviet.vn"))
-            {
-                lacVietUrl = word;
-            }
-            else
-            {
-                word = word.Replace(" ", "+");
-                lacVietUrl = "http://tratu.coviet.vn/tu-dien-lac-viet.aspx?learn=hoc-tieng-anh&t=A-V&k=" + word;
-            }
-            
-            StreamReader lacVietSt = _basicFunctions.HttpGetRequestViaProxy(lacVietUrl, proxyStr);
-            if (lacVietSt == null)
-            {
-                return FlashcardsGenerator.ConNotOk;
-            }
-
-            string lacVietDoc = lacVietSt.ReadToEnd();
-            CQ lacVietDom = CsQuery.CQ.Create(lacVietDoc);
-
-            string lacVietResult = lacVietDom["div[class=i p10]"].Text();
-            if (lacVietResult.Contains("Dữ liệu đang được cập nhật"))
-            {
-                return FlashcardsGenerator.SpelNotOk;
-            }
-
-            _lacVietDocument = lacVietDom;
-
-            return FlashcardsGenerator.GenOk;
+            return FlashcardsGenerator.GENERATING_SUCCESS;
         }
 
         private string GetOxfordPhonetic(CQ dom)
@@ -258,12 +245,49 @@ namespace FlashcardsGeneratorApplication
                 "<link type=\"text/css\" rel=\"stylesheet\" href=\"interface.css\">" +
                 "<link type=\"text/css\" rel=\"stylesheet\" href=\"responsive.css\">" +
                 "<link type=\"text/css\" rel=\"stylesheet\" href=\"oxford.css\">" +
-                "<div class=\"responsive_entry_center_wrap\">" + oxfContentElement.OuterHTML + "</div>" + "</html>";
+                "<div class=\"responsive_entry_center_wrap\">" + oxfContentElement.OuterHTML +
+                "</div>" + "</html>";
 
             oxfContent = oxfContent.Replace("\t", "");
+            oxfContent = oxfContent.Replace("\r", "");
             oxfContent = oxfContent.Replace("\n", "");
+
             oxfContent = oxfContent.Replace("class=\"unbox\"", "class=\"unbox is-active\"");
+
             return oxfContent;
+        }
+
+        private string checkLacVietContent(string word, string proxyStr)
+        {
+            string lacVietUrl = "";
+            if (word.Contains("tratu.coviet.vn"))
+            {
+                lacVietUrl = word;
+            }
+            else
+            {
+                word = word.Replace(" ", "+");
+                lacVietUrl = "http://tratu.coviet.vn/tu-dien-lac-viet.aspx?learn=hoc-tieng-anh&t=A-V&k=" + word;
+            }
+
+            StreamReader lacVietSt = _basicFunctions.HttpGetRequestViaProxy(lacVietUrl, proxyStr);
+            if (lacVietSt == null)
+            {
+                return FlashcardsGenerator.CONNECTION_FAILED;
+            }
+
+            string lacVietDoc = lacVietSt.ReadToEnd();
+            CQ lacVietDom = CQ.Create(lacVietDoc);
+
+            string lacVietResult = lacVietDom["div[class=i p10]"].Text();
+            if (lacVietResult.Contains("Dữ liệu đang được cập nhật"))
+            {
+                return FlashcardsGenerator.SPELLING_FAILED;
+            }
+
+            _lacVietDocument = lacVietDom;
+
+            return FlashcardsGenerator.GENERATING_SUCCESS;
         }
 
         private string GetLacVietContent(CQ dom)
@@ -274,7 +298,8 @@ namespace FlashcardsGeneratorApplication
             "<html>" + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">" +
             "<link type=\"text/css\" rel=\"stylesheet\" href=\"home.css\">" +
             "<link type=\"text/css\" rel=\"stylesheet\" href=\"responsive.css\">" +
-            "<div class=\"responsive_entry_center_wrap\">" + lacVietContentElement.OuterHTML + "</div>" + "</html>";
+            "<div class=\"responsive_entry_center_wrap\">" + lacVietContentElement.OuterHTML +
+            "</div>" + "</html>";
 
             lacVietContent = lacVietContent.Replace("\t", "");
             lacVietContent = lacVietContent.Replace("\r", "");
@@ -285,6 +310,70 @@ namespace FlashcardsGeneratorApplication
             lacVietContent = lacVietContent.Replace("<div class=\"cgach p5lr fl\">|</div>", "");
 
             return lacVietContent;
+        }
+
+        private string checkCambridgeContent(string word, string proxyStr)
+        {
+            string cambridgeUrl = "";
+            if (word.Contains("dictionary.cambridge.org"))
+            {
+                cambridgeUrl = word;
+            }
+            else
+            {
+                word = word.Replace(" ", "%20");
+                cambridgeUrl = "http://dictionary.cambridge.org/zhs/%E6%90%9C%E7%B4%A2/english-chinese-simplified/direct/?q=" + word;
+            }
+
+            StreamReader st = _basicFunctions.HttpGetRequestViaProxy(cambridgeUrl, proxyStr);
+            if (st == null)
+            {
+                return FlashcardsGenerator.CONNECTION_FAILED;
+            }
+
+            string doc = st.ReadToEnd();
+            CQ dom = CQ.Create(doc);
+
+            string title = dom["title"].Text();
+            if (title.Contains("你拼写正确了吗？") || !title.Contains(word))
+            {
+                return FlashcardsGenerator.SPELLING_FAILED;
+            }
+
+            _wrd = _basicFunctions.GetElementText(dom, "h2", 0);
+            if (_wrd.Equals(""))
+            {
+                return FlashcardsGenerator.GENERATING_FAILED;
+            }
+
+            _camDocument = dom;
+
+            return FlashcardsGenerator.GENERATING_SUCCESS;
+        }
+
+        private string GetCambridgeContent(CQ dom)
+        {
+            IDomObject cambridgeContentElement = _basicFunctions.GetElementObject(dom, "div.di.english-chinese-simplified", 0);
+            cambridgeContentElement.AddClass("entrybox english-chinese-simplified");
+
+            IDomObject ukSoundIcon = _basicFunctions.GetElementObject(dom, "span.sound.audio_play_button.pron-uk", 0);
+            ukSoundIcon.Remove();
+
+            IDomObject shareThisEntry = _basicFunctions.GetElementObject(dom, "div.share-this-entry", 0);
+            shareThisEntry.Remove();
+
+            string cambridgeContent =
+            "<html>" + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">" +
+            "<link type=\"text/css\" rel=\"stylesheet\" href=\"common.css\">" +
+            "<link type=\"text/css\" rel=\"stylesheet\" href=\"responsive.css\">" +
+            "<div class=\"responsive_entry_center_wrap\">" + cambridgeContentElement.OuterHTML +
+            "</div>" + "</html>";
+
+            cambridgeContent = cambridgeContent.Replace("\t", "");
+            cambridgeContent = cambridgeContent.Replace("\r", "");
+            cambridgeContent = cambridgeContent.Replace("\n", "");
+            
+            return cambridgeContent;
         }
     }
 }

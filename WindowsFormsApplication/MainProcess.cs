@@ -1,25 +1,25 @@
 ﻿using System;
-using System.Windows.Forms;
 
 namespace FlashcardsGeneratorApplication
 {
     internal class FlashcardsGenerator
     {
-        public const string enToEng = "[en] English";
-        public const string enToViet = "[en] Vietnamese";
-        public const string enToEngViet = "[en] English & Vietnamese";
-        public const string enToVietEng = "[en] Vietnamese & English";
-        public const string frToViet = "[fr] Vietnamese";
-        public const string frToEng = "[fr] English";
-        public const string frToEngViet = "[fr] English & Vietnamese";
-        public const string frToVietEng = "[fr] Vietnamese & English";
-        public const string vnToEng = "[vn] English";
-        public const string vnToFren = "[vn] French";
+        public const string EN2EN = "[EN] English";
+        public const string EN2VI = "[EN] Vietnamese";
+        public const string EN2CH = "[EN] Chinese";
+        public const string EN2EN_VI = "[EN] English & Vietnamese";
+        public const string EN2VI_EN = "[EN] Vietnamese & English";
+        public const string FR2VI = "[FR] Vietnamese";
+        public const string FR2EN = "[FR] English";
+        public const string FR2EN_VI = "[FR] English & Vietnamese";
+        public const string FR2VI_EN = "[FR] Vietnamese & English";
+        public const string VN2EN = "[VN] English";
+        public const string VN2FR = "[VN] French";
 
-        public const string ConNotOk = "Connection Failed"; 
-        public const string SpelNotOk = "Spelling Failed";
-        public const string GenOk = "Generating Succeed";
-        public const string GenNotOk = "Generating Failed";
+        public const string CONNECTION_FAILED = "Connection Failed"; 
+        public const string SPELLING_FAILED = "Spelling Failed";
+        public const string GENERATING_SUCCESS = "Generating Succeed";
+        public const string GENERATING_FAILED = "Generating Failed";
 
         private EnglishFlashcards _englishFlashcards = new EnglishFlashcards();
         private FrenchFlashcards _frenchFlashcards = new FrenchFlashcards();
@@ -28,13 +28,13 @@ namespace FlashcardsGeneratorApplication
 
         public string GenerateFlashCards(string word, string proxyStr, string language)
         {
-            Console.WriteLine("Generate Card for Word: " + word);
+            Console.WriteLine("Generate Card For The Word: " + word);
 
-            if (language.Contains("[en]"))
+            if (language.Contains("[EN]"))
                 _ankiCard = _englishFlashcards.GenerateEnglishFlashCards(word, proxyStr, language);
-            else if (language.Contains("[vn]"))
+            else if (language.Contains("[VN]"))
                 _ankiCard = _vietnameseFlashcards.GeneratevietnameseFlashCards(word, proxyStr, language);
-            else if (language.Contains("[fr]"))
+            else if (language.Contains("[FR]"))
                 _ankiCard = _frenchFlashcards.GenerateFrenchFlashCards(word, proxyStr, language);
 
             return _ankiCard;

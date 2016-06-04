@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FlashcardsGeneratorApplication</RootNamespace>
-    <AssemblyName>Flashcards Generator v8.2</AssemblyName>
+    <AssemblyName>Flashcards Generator v9.0</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -179,6 +179,8 @@
   <ItemGroup>
     <Content Include="anki.ico" />
     <Content Include="FodyWeavers.xml" />
+    <None Include="Resources\common.css" />
+    <None Include="Resources\star.png" />
     <None Include="Resources\home.css" />
     <None Include="Resources\Icon_7_4.png" />
     <None Include="Resources\Icon_6_7.png" />

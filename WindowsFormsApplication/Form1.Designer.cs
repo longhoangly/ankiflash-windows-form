@@ -296,16 +296,17 @@
             this.comBoxLanguages.Enabled = false;
             this.comBoxLanguages.FormattingEnabled = true;
             this.comBoxLanguages.Items.AddRange(new object[] {
-            "[en] English",
-            "[en] Vietnamese",
-            "[en] English & Vietnamese",
-            "[en] Vietnamese & English",
-            "[fr] Vietnamese",
-            "[fr] English",
-            "[fr] English & Vietnamese",
-            "[fr] Vietnamese & English",
-            "[vn] English",
-            "[vn] French"});
+            "[EN] English",
+            "[EN] Vietnamese",
+            "[EN] Chinese",
+            "[EN] English & Vietnamese",
+            "[EN] Vietnamese & English",
+            "[FR] Vietnamese",
+            "[FR] English",
+            "[FR] English & Vietnamese",
+            "[FR] Vietnamese & English",
+            "[VN] English",
+            "[VN] French"});
             this.comBoxLanguages.Location = new System.Drawing.Point(75, 21);
             this.comBoxLanguages.Name = "comBoxLanguages";
             this.comBoxLanguages.Size = new System.Drawing.Size(141, 21);
@@ -405,7 +406,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Flashcards Generator v8.2";
+            this.Text = "Flashcards Generator v9.0";
             this.groupBoxInput.ResumeLayout(false);
             this.groupBoxInput.PerformLayout();
             this.groupBoxOutput.ResumeLayout(false);
