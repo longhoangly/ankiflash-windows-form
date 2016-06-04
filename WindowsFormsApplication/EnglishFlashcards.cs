@@ -359,6 +359,9 @@ namespace FlashcardsGeneratorApplication
             IDomObject ukSoundIcon = _basicFunctions.GetElementObject(dom, "span.sound.audio_play_button.pron-uk", 0);
             ukSoundIcon.Remove();
 
+            IDomObject usIcon = _basicFunctions.GetElementObject(dom, "img.ussymbol", 0);
+            if (usIcon !=null) usIcon.Remove();
+
             IDomObject shareThisEntry = _basicFunctions.GetElementObject(dom, "div.share-this-entry", 0);
             shareThisEntry.Remove();
 

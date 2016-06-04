@@ -466,19 +466,19 @@ namespace FlashcardsGeneratorApplication
             input2.Save(image + @"\anki.png");
 
             Byte[] input3 = Properties.Resources._en_singleformABCDEFGHLONGLEE123;
-            File.WriteAllBytes(@".\AnkiFlashcards\[en]singleformABCDEFGHLONGLEE123.apkg", input3);
+            File.WriteAllBytes(@".\AnkiFlashcards\[EN]singleformABCDEFGHLONGLEE123.apkg", input3);
 
             input3 = Properties.Resources._en_multiformABCDEFGHLONGLEE123;
-            File.WriteAllBytes(@".\AnkiFlashcards\[en]multiformABCDEFGHLONGLEE123.apkg", input3);
+            File.WriteAllBytes(@".\AnkiFlashcards\[EN]multiformABCDEFGHLONGLEE123.apkg", input3);
 
             input3 = Properties.Resources._fr_multiformABCDEFGHLONGLEE123;
-            File.WriteAllBytes(@".\AnkiFlashcards\[fr]multiformABCDEFGHLONGLEE123.apkg", input3);
+            File.WriteAllBytes(@".\AnkiFlashcards\[FR]multiformABCDEFGHLONGLEE123.apkg", input3);
 
             input3 = Properties.Resources._fr_singleformABCDEFGHLONGLEE123;
-            File.WriteAllBytes(@".\AnkiFlashcards\[fr]singleformABCDEFGHLONGLEE123.apkg", input3);
+            File.WriteAllBytes(@".\AnkiFlashcards\[FR]singleformABCDEFGHLONGLEE123.apkg", input3);
 
             input3 = Properties.Resources._vn_singleformABCDEFGHLONGLEE123;
-            File.WriteAllBytes(@".\AnkiFlashcards\[vn]singleformABCDEFGHLONGLEE123.apkg", input3);
+            File.WriteAllBytes(@".\AnkiFlashcards\[VN]singleformABCDEFGHLONGLEE123.apkg", input3);
             #endregion
         }
 
