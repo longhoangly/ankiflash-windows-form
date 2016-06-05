@@ -135,6 +135,7 @@ class AutoImportWindows(QtGui.QWidget):
         print "Import csv file complete..."
 
         showInfo("Import Anki Flashcard Complete...")
+        self.close()
 
     def recursiveCopyToAnkiMedia(self, srcdir, desdir):
         global count
