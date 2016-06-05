@@ -39,6 +39,12 @@ from anki.importing import TextImporter, AnkiPackageImporter
 from anki.importing.noteimp import NoteImporter
 
 class AutoImportWindows(QtGui.QWidget):
+    global program86
+    global program
+
+    program86 = 'C:\Program Files (x86)\AnkiFlashcards\Flashcards Generator';
+    program = 'C:\Program Files\AnkiFlashcards\Flashcards Generator';
+
     def __init__(self):
         super(AutoImportWindows, self).__init__()
         self.move(300, 300)
@@ -73,9 +79,18 @@ class AutoImportWindows(QtGui.QWidget):
         self.pBar.setMaximum(100)
 
         self.show()
+        global basedir
+        if(os.path.isfile(program86 + r'\Flashcards Generator v9.0.exe') or os.path.isfile(program + r'\Flashcards Generator v9.0.exe')):
+            self.btnBrowse.setEnabled(False)
+            self.txtPath.setEnabled(False)
+            self.btnImport.setEnabled(True)
+            if(os.path.isfile(program86 + r'\Flashcards Generator v9.0.exe')):
+                basedir = program86 + r'\AnkiFlashcards';
+            else:
+                basedir = program + r'\AnkiFlashcards';
+            self.txtPath.setText(basedir)
 
     def btnBrowseClicked(self):
-        global basedir
         basedir = QtGui.QFileDialog.getExistingDirectory(self, 'Select Generated Flashcards Folder')
         self.txtPath.setText(basedir)
         self.btnImport.setEnabled(True)

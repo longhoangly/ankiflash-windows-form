@@ -296,7 +296,9 @@ namespace FlashcardsGeneratorApplication
                     MessageBox.Show("Your current key is invalid or expired, register a new one.", "Warning");
                     btnRegister.Enabled = true;
                     btnRegister.Text = "Register";
-
+                    txtInput.Enabled = false;
+                    btnOpen.Enabled = false;
+                    txtInputPath.Enabled = false;
                     btnRun.Enabled = false;
                     return false;
                 }
@@ -306,7 +308,9 @@ namespace FlashcardsGeneratorApplication
                     btnRegister.Enabled = false;
                     btnRegister.Text = "Validated";
                     txtLicenseKey.Enabled = false;
-
+                    txtInput.Enabled = true;
+                    btnOpen.Enabled = true;
+                    txtInputPath.Enabled = true;
                     btnRun.Enabled = true;
                     return true;
                 }
@@ -316,7 +320,9 @@ namespace FlashcardsGeneratorApplication
                 MessageBox.Show("You haven't registered yet! Please register to run Flashcard Generator.\n", "Message");
                 btnRegister.Enabled = true;
                 btnRegister.Text = "Register";
-
+                txtInput.Enabled = false;
+                btnOpen.Enabled = false;
+                txtInputPath.Enabled = false;
                 btnRun.Enabled = false;
                 return false;
             }
@@ -324,6 +330,9 @@ namespace FlashcardsGeneratorApplication
 
         private void btnUninstall_Click(object sender, EventArgs e)
         {
+            var confirmResult = MessageBox.Show("Are you sure to uninstall Flashcard Generator?", "Uninstall Confirmation!!!", MessageBoxButtons.YesNo);
+            
+            if (confirmResult != DialogResult.Yes) return;
             Application.Exit();
             System.Diagnostics.Process.Start(@"Uninstall.bat");
         }
