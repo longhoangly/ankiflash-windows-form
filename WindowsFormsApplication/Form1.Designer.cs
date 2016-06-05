@@ -37,15 +37,15 @@
             this.txtNumInput = new System.Windows.Forms.TextBox();
             this.txtInput = new System.Windows.Forms.RichTextBox();
             this.groupBoxOutput = new System.Windows.Forms.GroupBox();
+            this.btnUninstall = new System.Windows.Forms.Button();
             this.txtFailedNum = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtFailed = new System.Windows.Forms.RichTextBox();
-            this.txtOutputPath = new System.Windows.Forms.TextBox();
-            this.labelCards = new System.Windows.Forms.Label();
+            this.txtLicenseKey = new System.Windows.Forms.TextBox();
             this.txtNumOutput = new System.Windows.Forms.TextBox();
             this.txtOutput = new System.Windows.Forms.RichTextBox();
-            this.btnSave = new System.Windows.Forms.Button();
+            this.btnRegister = new System.Windows.Forms.Button();
             this.proBar = new System.Windows.Forms.ProgressBar();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.btnRun = new System.Windows.Forms.Button();
@@ -145,15 +145,15 @@
             // 
             // groupBoxOutput
             // 
+            this.groupBoxOutput.Controls.Add(this.btnUninstall);
             this.groupBoxOutput.Controls.Add(this.txtFailedNum);
             this.groupBoxOutput.Controls.Add(this.label2);
             this.groupBoxOutput.Controls.Add(this.label1);
             this.groupBoxOutput.Controls.Add(this.txtFailed);
-            this.groupBoxOutput.Controls.Add(this.txtOutputPath);
-            this.groupBoxOutput.Controls.Add(this.labelCards);
+            this.groupBoxOutput.Controls.Add(this.txtLicenseKey);
             this.groupBoxOutput.Controls.Add(this.txtNumOutput);
             this.groupBoxOutput.Controls.Add(this.txtOutput);
-            this.groupBoxOutput.Controls.Add(this.btnSave);
+            this.groupBoxOutput.Controls.Add(this.btnRegister);
             this.groupBoxOutput.Location = new System.Drawing.Point(380, 6);
             this.groupBoxOutput.Name = "groupBoxOutput";
             this.groupBoxOutput.Size = new System.Drawing.Size(369, 284);
@@ -161,12 +161,23 @@
             this.groupBoxOutput.TabStop = false;
             this.groupBoxOutput.Text = "Output";
             // 
+            // btnUninstall
+            // 
+            this.btnUninstall.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btnUninstall.Location = new System.Drawing.Point(302, 252);
+            this.btnUninstall.Name = "btnUninstall";
+            this.btnUninstall.Size = new System.Drawing.Size(59, 25);
+            this.btnUninstall.TabIndex = 16;
+            this.btnUninstall.Text = "Uninstall";
+            this.btnUninstall.UseVisualStyleBackColor = false;
+            this.btnUninstall.Click += new System.EventHandler(this.btnUninstall_Click);
+            // 
             // txtFailedNum
             // 
-            this.txtFailedNum.Location = new System.Drawing.Point(300, 22);
+            this.txtFailedNum.Location = new System.Drawing.Point(312, 22);
             this.txtFailedNum.Name = "txtFailedNum";
             this.txtFailedNum.ReadOnly = true;
-            this.txtFailedNum.Size = new System.Drawing.Size(62, 20);
+            this.txtFailedNum.Size = new System.Drawing.Size(49, 20);
             this.txtFailedNum.TabIndex = 15;
             this.txtFailedNum.Text = "0";
             // 
@@ -174,7 +185,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label2.Location = new System.Drawing.Point(228, 26);
+            this.label2.Location = new System.Drawing.Point(184, 25);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 14;
@@ -192,43 +203,29 @@
             // 
             // txtFailed
             // 
-            this.txtFailed.Location = new System.Drawing.Point(228, 46);
+            this.txtFailed.Location = new System.Drawing.Point(184, 46);
             this.txtFailed.Name = "txtFailed";
             this.txtFailed.ReadOnly = true;
-            this.txtFailed.Size = new System.Drawing.Size(134, 200);
+            this.txtFailed.Size = new System.Drawing.Size(178, 200);
             this.txtFailed.TabIndex = 12;
             this.txtFailed.Text = "";
             this.txtFailed.WordWrap = false;
             // 
-            // txtOutputPath
+            // txtLicenseKey
             // 
-            this.txtOutputPath.Enabled = false;
-            this.txtOutputPath.Location = new System.Drawing.Point(68, 254);
-            this.txtOutputPath.Name = "txtOutputPath";
-            this.txtOutputPath.ReadOnly = true;
-            this.txtOutputPath.Size = new System.Drawing.Size(293, 20);
-            this.txtOutputPath.TabIndex = 6;
-            // 
-            // labelCards
-            // 
-            this.labelCards.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelCards.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.labelCards.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelCards.Location = new System.Drawing.Point(93, 22);
-            this.labelCards.Name = "labelCards";
-            this.labelCards.Size = new System.Drawing.Size(38, 20);
-            this.labelCards.TabIndex = 7;
-            this.labelCards.Text = "Cards";
-            this.labelCards.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txtLicenseKey.AllowDrop = true;
+            this.txtLicenseKey.Enabled = false;
+            this.txtLicenseKey.Location = new System.Drawing.Point(68, 254);
+            this.txtLicenseKey.Name = "txtLicenseKey";
+            this.txtLicenseKey.Size = new System.Drawing.Size(228, 20);
+            this.txtLicenseKey.TabIndex = 6;
             // 
             // txtNumOutput
             // 
-            this.txtNumOutput.Location = new System.Drawing.Point(137, 22);
+            this.txtNumOutput.Location = new System.Drawing.Point(126, 22);
             this.txtNumOutput.Name = "txtNumOutput";
             this.txtNumOutput.ReadOnly = true;
-            this.txtNumOutput.Size = new System.Drawing.Size(82, 20);
+            this.txtNumOutput.Size = new System.Drawing.Size(50, 20);
             this.txtNumOutput.TabIndex = 6;
             this.txtNumOutput.Text = "0";
             // 
@@ -237,22 +234,22 @@
             this.txtOutput.Location = new System.Drawing.Point(6, 46);
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.ReadOnly = true;
-            this.txtOutput.Size = new System.Drawing.Size(216, 200);
+            this.txtOutput.Size = new System.Drawing.Size(172, 200);
             this.txtOutput.TabIndex = 2;
             this.txtOutput.Text = "";
             this.txtOutput.WordWrap = false;
             // 
-            // btnSave
+            // btnRegister
             // 
-            this.btnSave.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.btnSave.Enabled = false;
-            this.btnSave.Location = new System.Drawing.Point(5, 252);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(59, 25);
-            this.btnSave.TabIndex = 11;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = false;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnRegister.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btnRegister.Enabled = false;
+            this.btnRegister.Location = new System.Drawing.Point(5, 252);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(59, 25);
+            this.btnRegister.TabIndex = 11;
+            this.btnRegister.Text = "Register";
+            this.btnRegister.UseVisualStyleBackColor = false;
+            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
             // proBar
             // 
@@ -432,12 +429,11 @@
         private System.Windows.Forms.RichTextBox txtInput;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ComboBox comBoxLanguages;
-        private System.Windows.Forms.Label labelCards;
         private System.Windows.Forms.TextBox txtNumOutput;
         private System.Windows.Forms.Label labelLanguages;
         private System.Windows.Forms.GroupBox groupBoxProgress;
-        private System.Windows.Forms.TextBox txtOutputPath;
-        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.TextBox txtLicenseKey;
+        private System.Windows.Forms.Button btnRegister;
         private System.Windows.Forms.Label labelProxyConnection;
         private System.Windows.Forms.TextBox txtProxyString;
         private System.Windows.Forms.CheckBox chkBoxUseProxy;
@@ -448,6 +444,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtFailedNum;
         private System.Windows.Forms.CheckBox chkBoxClipboard;
+        private System.Windows.Forms.Button btnUninstall;
     }
 }
 

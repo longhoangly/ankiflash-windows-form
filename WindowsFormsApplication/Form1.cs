@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace FlashcardsGeneratorApplication
@@ -19,18 +20,25 @@ namespace FlashcardsGeneratorApplication
         private List<string> _successResult;
         private List<string> _failureResult;
         private bool _canceled = false;
+        private string key = "9GC3P-GH4JR-KH7JE-X8BQB-9VDE0-v92016";
+        private string licenseFile = @".\License\License";
 
         private readonly UTF8Encoding _utf8WithoutBom = new UTF8Encoding(false);
         private readonly FlashcardsGenerator _flashcardsGenerator = new FlashcardsGenerator();
 
-        [DllImport("User32.dll", CharSet = CharSet.Auto)]
-        private static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
+        [DllImport("user32.dll")]
+        static extern IntPtr SetClipboardViewer(IntPtr hWndNewViewer);
 
-        [DllImport("User32.dll", CharSet = CharSet.Auto)]
-        private static extern bool ChangeClipboardChain(IntPtr hWndRemove, IntPtr hWndNewNext);
+        [DllImport("user32.dll")]
+        static extern bool ChangeClipboardChain(IntPtr hWndRemove, IntPtr hWndNewNext);
 
-        private const int WmDrawclipboard = 0x0308;
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hwnd, int wMsg, IntPtr wParam, IntPtr lParam);
+
         private IntPtr _clipboardViewerNext;
+
+        private const int WM_DRAWCLIPBOARD = 0x0308;
+        private const int WM_CHANGECBCHAIN = 0x030D;
 
         public MainForm()
         {
@@ -43,6 +51,7 @@ namespace FlashcardsGeneratorApplication
             backgroundWorker.WorkerReportsProgress = true;
             backgroundWorker.WorkerSupportsCancellation = true;
 
+            Shown += Form1_Shown;
             FormClosing += Form1_FormClosing;
         }
 
@@ -78,6 +87,82 @@ namespace FlashcardsGeneratorApplication
             }
         }
 
+        private void btnRun_Click(object sender, EventArgs e)
+        {
+            btnCancel.Enabled = true;
+            btnRun.Enabled = false;
+            btnRun.Text = "Running...";
+            comBoxLanguages.Enabled = false;
+            chkBoxUseProxy.Enabled = false;
+            labelProxyConnection.Enabled = false;
+            txtProxyString.Enabled = false;
+
+            _language = comBoxLanguages.Text;
+            _proxy = chkBoxUseProxy.Checked ? txtProxyString.Text : "";
+
+            proBar.Maximum = _words.Length;
+            txtOutput.Text = "";
+            txtFailed.Text = "";
+            txtNumOutput.Text = "0";
+            txtFailedNum.Text = "0";
+            proBar.Value = 0;
+            _successResult = new List<string>();
+            _failureResult = new List<string>();
+
+            backgroundWorker.RunWorkerAsync();
+        }
+
+
+        private void chkBoxClipboard_CheckedChanged(object sender, EventArgs e)
+        {
+            Clipboard.Clear();
+            if (chkBoxClipboard.Checked)
+            {
+                // Adds our form to the chain of clipboard viewers.
+                _clipboardViewerNext = SetClipboardViewer(this.Handle);
+            }
+            else
+            {
+                ChangeClipboardChain(this.Handle, _clipboardViewerNext);
+            }
+        }
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            switch (m.Msg)
+            {
+                case WM_DRAWCLIPBOARD:
+                    IDataObject iData = Clipboard.GetDataObject();      // Clipboard's data
+
+                    if (iData.GetDataPresent(DataFormats.Text))
+                    {
+                        string text = (string)iData.GetData(DataFormats.Text);      // Clipboard text
+                        txtInput.Text += text + "\r\n";
+                    }
+                    else if (iData.GetDataPresent(DataFormats.Bitmap))
+                    {
+                        Bitmap image = (Bitmap)iData.GetData(DataFormats.Bitmap);   // Clipboard image
+                    }
+                    break;
+
+                case WM_CHANGECBCHAIN:
+                    if (m.WParam == _clipboardViewerNext)
+                        _clipboardViewerNext = m.LParam;
+                    else
+                        SendMessage(_clipboardViewerNext, m.Msg, m.WParam, m.LParam);
+                    break;
+            }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Clipboard.Clear();
+            // Removes our from the chain of clipboard viewers when the form closes.
+            ChangeClipboardChain(this.Handle, _clipboardViewerNext);
+        }
+
         private void txtInput_TextChanged(object sender, EventArgs e)
         {
             _words = txtInput.Text.Split('\n').Where(w => !string.IsNullOrEmpty(w) && !w.Equals("\r")).ToArray();
@@ -98,33 +183,17 @@ namespace FlashcardsGeneratorApplication
 
         }
 
-        private void btnRun_Click(object sender, EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
-            btnCancel.Enabled = true;
-            btnRun.Enabled = false;
-            btnRun.Text = "Running...";
-            comBoxLanguages.Enabled = false;
-            chkBoxUseProxy.Enabled = false;
-            labelProxyConnection.Enabled = false;
-            txtProxyString.Enabled = false;
-            btnSave.Enabled = false;
-            txtOutputPath.Enabled = false;
+            if (backgroundWorker.IsBusy)
+            {
+                backgroundWorker.CancelAsync();
+            }
 
-            _language = comBoxLanguages.Text;
-            _proxy = chkBoxUseProxy.Checked ? txtProxyString.Text : "";
-
-            proBar.Maximum = _words.Length;
-            txtOutput.Text = "";
-            txtFailed.Text = "";
-            txtOutputPath.Text = "";
-            txtNumOutput.Text = "0";
-            txtFailedNum.Text = "0";
-            proBar.Value = 0;
-            _successResult = new List<string>();
-            _failureResult = new List<string>();
-
-            backgroundWorker.RunWorkerAsync();
+            RestoreLayout();
+            MessageBox.Show("Canceled.\n", "Info");
         }
+
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -175,45 +244,7 @@ namespace FlashcardsGeneratorApplication
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             RestoreLayout();
-            if (!_canceled)
-            {
-                MessageBox.Show("Completed.\n", "Info");
-            }
-        }
 
-        private void chkBoxUseProxy_CheckedChanged(object sender, EventArgs e)
-        {
-            labelProxyConnection.Enabled = chkBoxUseProxy.Checked;
-            txtProxyString.Enabled = chkBoxUseProxy.Checked;
-        }
-
-        private void chkBoxClipboard_CheckedChanged(object sender, EventArgs e)
-        {
-            if (chkBoxClipboard.Checked)
-            {
-                Clipboard.Clear();
-                // Adds our form to the chain of clipboard viewers.
-                _clipboardViewerNext = SetClipboardViewer(this.Handle);
-            }
-            else
-            {
-                ChangeClipboardChain(this.Handle, _clipboardViewerNext);
-            }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            if (backgroundWorker.IsBusy)
-            {
-                backgroundWorker.CancelAsync();
-            }
-
-            RestoreLayout();
-            MessageBox.Show("Canceled.\n", "Info");
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
             string ankiDeck = @".\AnkiFlashcards\ankiDeck.csv";
             SaveFile(_successResult, ankiDeck);
 
@@ -222,9 +253,93 @@ namespace FlashcardsGeneratorApplication
             Languages.Add(comBoxLanguages.Text);
             WriteArrayList(Languages, language);
 
-            txtOutputPath.Text = @"Saved to: AnkiFlashcards\ankiDeck.csv";
-            MessageBox.Show("Saved.\n", "Info");
+            if (!_canceled)
+            {
+                MessageBox.Show("Completed.\n", "Info");
+            }
         }
+
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            if (btnRegister.Text.Equals("Register"))
+            {
+                btnRegister.Text = "Validate";
+                System.Diagnostics.Process.Start("http://goo.gl/forms/J3eFTiHLBZ7HtiLQ2");
+                txtLicenseKey.Text = "Input license key here!";
+                txtLicenseKey.Enabled = true;
+            }
+            else
+            {
+                List<string> licenses = new List<string>();
+                licenses.Add(txtLicenseKey.Text);
+                SaveFile(licenses, licenseFile);
+                Thread.Sleep(1000);
+
+                if (IsValidLicenseKey())
+                    MessageBox.Show("Congratulation, you registered successfully.\n", "Info");
+            }
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            IsValidLicenseKey();
+        }
+
+        private bool IsValidLicenseKey()
+        {
+            if (File.Exists(licenseFile))
+            {
+                string check = File.ReadAllText(licenseFile).Replace("\n", "").Replace("\r", "");
+                if (!key.Equals(check))
+                {
+                    MessageBox.Show("Your current key is invalid or expired, register a new one.", "Warning");
+                    btnRegister.Enabled = true;
+                    btnRegister.Text = "Register";
+
+                    btnRun.Enabled = false;
+                    return false;
+                }
+                else
+                {
+                    txtLicenseKey.Text = "Registered :)";
+                    btnRegister.Enabled = false;
+                    btnRegister.Text = "Validated";
+                    txtLicenseKey.Enabled = false;
+
+                    btnRun.Enabled = true;
+                    return true;
+                }
+            }
+            else
+            {
+                MessageBox.Show("You haven't registered yet! Please register to run Flashcard Generator.\n", "Message");
+                btnRegister.Enabled = true;
+                btnRegister.Text = "Register";
+
+                btnRun.Enabled = false;
+                return false;
+            }
+        }
+
+        private void btnUninstall_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+            System.Diagnostics.Process.Start(@"Uninstall.bat");
+        }
+
+
+        private void chkBoxUseProxy_CheckedChanged(object sender, EventArgs e)
+        {
+            labelProxyConnection.Enabled = chkBoxUseProxy.Checked;
+            txtProxyString.Enabled = chkBoxUseProxy.Checked;
+        }
+
+        private void support_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.facebook.com/ankiflashcard/");
+        }
+
 
         private void WriteArrayList(List<string> arrayList, string filePath)
         {
@@ -314,17 +429,6 @@ namespace FlashcardsGeneratorApplication
             chkBoxUseProxy.Enabled = true;
             labelProxyConnection.Enabled = chkBoxUseProxy.Checked;
             txtProxyString.Enabled = chkBoxUseProxy.Checked;
-
-            if (txtNumOutput.Text == "0")
-            {
-                btnSave.Enabled = false;
-                txtOutputPath.Enabled = false;
-            }
-            else
-            {
-                btnSave.Enabled = true;
-                txtOutputPath.Enabled = true;
-            }
         }
 
         private void EmbededCopy()
@@ -480,37 +584,6 @@ namespace FlashcardsGeneratorApplication
             input3 = Properties.Resources._vn_singleformABCDEFGHLONGLEE123;
             File.WriteAllBytes(@".\AnkiFlashcards\[VN]singleformABCDEFGHLONGLEE123.apkg", input3);
             #endregion
-        }
-
-        private void support_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://www.facebook.com/ankiflashcard/");
-        }
-
-        protected override void WndProc(ref Message m)
-        {
-            base.WndProc(ref m);    // Process the message 
-
-            if (m.Msg == WmDrawclipboard)
-            {
-                IDataObject iData = Clipboard.GetDataObject();      // Clipboard's data
-
-                if (iData.GetDataPresent(DataFormats.Text))
-                {
-                    string text = (string)iData.GetData(DataFormats.Text);      // Clipboard text
-                    txtInput.Text += text + "\r\n";
-                }
-                else if (iData.GetDataPresent(DataFormats.Bitmap))
-                {
-                    Bitmap image = (Bitmap)iData.GetData(DataFormats.Bitmap);   // Clipboard image
-                }
-            }
-        }
-
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            // Removes our from the chain of clipboard viewers when the form closes.
-            ChangeClipboardChain(this.Handle, _clipboardViewerNext);        
         }
     }
 }
