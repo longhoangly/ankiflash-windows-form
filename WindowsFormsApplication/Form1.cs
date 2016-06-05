@@ -311,7 +311,6 @@ namespace FlashcardsGeneratorApplication
                     txtInput.Enabled = true;
                     btnOpen.Enabled = true;
                     txtInputPath.Enabled = true;
-                    btnRun.Enabled = true;
                     return true;
                 }
             }
