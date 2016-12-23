@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FlashcardsGeneratorApplication.Properties {
+namespace FlashcardsGenerator.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace FlashcardsGeneratorApplication.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FlashcardsGeneratorApplication.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FlashcardsGenerator.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -106,7 +106,7 @@ namespace FlashcardsGeneratorApplication.Properties {
         ///\*------------------------------------*/
         ///
         ////* high level styles */
-        ///html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summar [rest of string was truncated]&quot;;.
+        ///html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,s [rest of string was truncated]&quot;;.
         /// </summary>
         public static string _interface {
             get {
@@ -141,6 +141,17 @@ namespace FlashcardsGeneratorApplication.Properties {
             get {
                 object obj = ResourceManager.GetObject("btn_wordlist", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///@font-face{font-family:&apos;Open Sans&apos;;font-style:normal;font-weight:400;src:local(&apos;Open Sans&apos;),local(&apos;OpenSans&apos;),url(/external/fonts/OpenSans.woff?version=3.1.50) format(&apos;woff&apos;);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}
+        ///*{word-wrap:break-word;margin:0;padding:0;border:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;font-weight:inherit;font-f [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string collins_common {
+            get {
+                return ResourceManager.GetString("collins_common", resourceCulture);
             }
         }
         
@@ -372,17 +383,8 @@ namespace FlashcardsGeneratorApplication.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline;box-sizing:border-box;-moz-box-sizing:border-box;-o-box-sizing:border-box;-webkit-box-sizing:border-box}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}ins{background-color:#ff9;color:#000;text-decoration:none}mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}del{text-decoration:line-through}abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}table{border-collapse:col [rest of string was truncated]&quot;;.
-        /// </summary>
-        public static string main {
-            get {
-                return ResourceManager.GetString("main", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to #column-content{margin:0 0 0;padding:0;z-index:0}
-        ///#content{margin:0;padding:0 1em 1.5em;position:relative;z-index:2;color:black;border-top:1px solid #88C0EC;border-right:none}#column-two{top:-35px;position:relative;float:left;margin:auto;width:250px}body{font:x-small sans-serif;color:black;margin:0;padding:0;font-size:12px}#globalWrapper{width:985px; background-color:#FFFFFF;margin:0 auto;padding:0}.visualClear{clear:both}table{font-size:100%;color:black;background-color:white}a{text-decoration:none;color:# [rest of string was truncated]&quot;;.
+        ///#content{margin:0;padding:0 1em 1.5em;position:relative;z-index:2;color:black;border-top:1px solid #88C0EC;border-right:none}#column-two{top:-35px;position:relative;float:left;margin:auto;width:250px}body{font:x-small sans-serif;color:black;margin:0;padding:0;font-size:12px}#globalWrapper{width:985px; background-color:#FFFFFF;margin:0 auto;padding:0}.visualClear{clear:both}table{font-size:100%;color:black;background-color:white}a{text-decoration:none;color: [rest of string was truncated]&quot;;.
         /// </summary>
         public static string main_min {
             get {
@@ -424,9 +426,7 @@ namespace FlashcardsGeneratorApplication.Properties {
         ///    margin-left: 0;
         ///    margin-bottom: 0;
         ///}
-        ///
-        ///div.icon {
-        ///    display: [rest of string was truncated]&quot;;.
+        ///        /// [rest of string was truncated]&quot;;.
         /// </summary>
         public static string oxford {
             get {
@@ -496,10 +496,7 @@ namespace FlashcardsGeneratorApplication.Properties {
         ///
         ///.responsive_row {
         ///    clear: both;
-        ///    margin-bottom: 18px;
-        ///}
-        ///
-        ///.resp [rest of string was truncated]&quot;;.
+        ///   [rest of string was truncated]&quot;;.
         /// </summary>
         public static string responsive {
             get {
