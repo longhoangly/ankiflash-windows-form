@@ -15,7 +15,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TargetFrameworkProfile />
-    <PublishUrl>C:\Users\Administrator\Desktop\</PublishUrl>
+    <PublishUrl>C:\Users\longhly\Desktop\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -67,7 +67,7 @@
     <ApplicationIcon>anki.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CsQuery">
+    <Reference Include="CsQuery, Version=1.3.3.249, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\CsQuery.1.3.4\lib\net40\CsQuery.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -109,7 +109,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Flashcards Generator_TemporaryKey.pfx" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -182,7 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="anki.ico" />
-    <Content Include="FodyWeavers.xml" />
+    <None Include="FodyWeavers.xml" />
     <None Include="Resources\collins_common.css" />
     <None Include="Resources\common.css" />
     <None Include="Resources\star.png" />
@@ -200,38 +199,7 @@
     <None Include="Resources\css_multiple_languages.css" />
     <None Include="Resources\back_multiple_languages.html" />
   </ItemGroup>
-  <ItemGroup>
-    <PublishFile Include="CsQuery">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-    <PublishFile Include="FodyWeavers.xml">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>File</FileType>
-    </PublishFile>
-    <PublishFile Include="Mono.HttpUtility">
-      <Visible>False</Visible>
-      <Group>
-      </Group>
-      <TargetPath>
-      </TargetPath>
-      <PublishState>Include</PublishState>
-      <IncludeHash>True</IncludeHash>
-      <FileType>Assembly</FileType>
-    </PublishFile>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <UsingTask TaskName="CosturaCleanup" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll" TaskFactory="CodeTaskFactory">
     <ParameterGroup>
@@ -267,17 +235,19 @@ foreach (var item in filesToCleanup)
     </Task>
   </UsingTask>
   <Target Name="CleanReferenceCopyLocalPaths" AfterTargets="AfterBuild;NonWinFodyTarget">
-    <CosturaCleanup Config="FodyWeavers.xml" Files="@(ReferenceCopyLocalPaths-&gt;'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
+    <CosturaCleanup Config="FodyWeavers.xml" Files="@(ReferenceCopyLocalPaths->'$(OutDir)%(DestinationSubDirectory)%(Filename)%(Extension)')" />
   </Target>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
-    <Error Condition="!Exists('..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Fody.2.0.0\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.2.0.0\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
+    <Error Condition="!Exists('..\packages\Costura.Fody.1.6.2\build\portable-net+sl+win+wpa+wp\Costura.Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Costura.Fody.1.6.2\build\portable-net+sl+win+wpa+wp\Costura.Fody.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <Import Project="..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
+  <Import Project="..\packages\Fody.2.0.0\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.2.0.0\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
+  <Import Project="..\packages\Costura.Fody.1.6.2\build\portable-net+sl+win+wpa+wp\Costura.Fody.targets" Condition="Exists('..\packages\Costura.Fody.1.6.2\build\portable-net+sl+win+wpa+wp\Costura.Fody.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
