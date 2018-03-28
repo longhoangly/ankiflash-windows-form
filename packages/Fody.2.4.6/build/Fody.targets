@@ -13,7 +13,7 @@
     </When>
     <When Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">
       <PropertyGroup>
-        <FodySolutionDir>$(MSBuildProjectDirectory)..\..\..\</FodySolutionDir>
+        <FodySolutionDir>$(MSBuildProjectDirectory)\..\</FodySolutionDir>
       </PropertyGroup>
     </When>
   </Choose>
@@ -37,19 +37,37 @@
   <PropertyGroup>
     <ProjectWeaverXml>$(ProjectDir)FodyWeavers.xml</ProjectWeaverXml>
     <FodySignAssembly Condition="$(FodySignAssembly) == '' Or $(FodySignAssembly) == '*Undefined*'">$(SignAssembly)</FodySignAssembly>
-    <FodyPath Condition="$(FodyPath) == '' Or $(FodyPath) == '*Undefined*'">$(MSBuildThisFileDirectory)..\..\</FodyPath>
+    <FodyPath Condition="$(FodyPath) == '' Or $(FodyPath) == '*Undefined*'">$(MSBuildThisFileDirectory)..\</FodyPath>
+  </PropertyGroup>
+  <Choose>
+    <When Condition="'$(MSBuildRuntimeType)'=='Core'">
+      <PropertyGroup>
+        <FodyAssemblyPath>$(FodyPath)netstandardtask</FodyAssemblyPath>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <FodyAssemblyPath>$(FodyPath)netclassictask</FodyAssemblyPath>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  <PropertyGroup>
+    <FodyAssembly>$(FodyAssemblyPath)\Fody.dll</FodyAssembly>
   </PropertyGroup>
   <UsingTask
       TaskName="Fody.WeavingTask"
-      AssemblyFile="$(FodyPath)\Fody.dll" />
+      AssemblyFile="$(FodyAssembly)" />
   <Target
       AfterTargets="AfterCompile"
-      Condition="Exists(@(IntermediateAssembly))"
+      Condition="Exists('@(IntermediateAssembly)') And $(DesignTimeBuild) != true And $(DisableFody) != true"
       Name="FodyTarget"
       DependsOnTargets="$(FodyDependsOnTargets)"
       Inputs="@(IntermediateAssembly->'%(FullPath)');$(FodyKeyFilePath);$(ProjectWeaverXml)"
       Outputs="$(TargetPath)">
 
+    <ItemGroup>
+      <FodyPackageDefinitions Include="%(PackageDefinitions.ResolvedPath)"/>
+    </ItemGroup>
     <Fody.WeavingTask
           AssemblyPath="@(IntermediateAssembly)"
           IntermediateDir="$(ProjectDir)$(IntermediateOutputPath)"
@@ -61,25 +79,29 @@
           SignAssembly="$(FodySignAssembly)"
           ReferenceCopyLocalPaths="@(ReferenceCopyLocalPaths)"
           DefineConstants="$(DefineConstants)"
+          PackageDefinitions="@(FodyPackageDefinitions)"
+          DebugSymbols="$(DebugSymbols)"
+          DebugType="$(DebugType)"
+          DocumentationFilePath="@(DocFileItem->'%(FullPath)')"
+          MsBuildThisFileDirectory="$(MSBuildThisFileDirectory)"
       >
 
-      <Output 
+      <Output
         TaskParameter="ExecutedWeavers"
         PropertyName="FodyExecutedWeavers" />
     </Fody.WeavingTask>
 
     <PropertyGroup>
-      <FodyWeavingTargetWasRun>True</FodyWeavingTargetWasRun>
+      <FodyWeavingTargetWasRun>true</FodyWeavingTargetWasRun>
     </PropertyGroup>
-      
-  </Target>
 
+  </Target>
 
   <UsingTask
     TaskName="Fody.VerifyTask"
-    AssemblyFile="$(FodyPath)\Fody.dll" />
-  <Target Condition="'$(NCrunch)' != '1' And ('$(FodyWeavingTargetWasRun)' == 'True')"
-      AfterTargets="FodyTarget;AfterBuild"
+    AssemblyFile="$(FodyAssembly)" />
+  <Target Condition="'$(NCrunch)' != '1' And $(FodyWeavingTargetWasRun) == true And $(DisableFody) != true"
+      AfterTargets="AfterBuild"
       Name="FodyVerifyTarget"
       DependsOnTargets="$(FodyVerifyDependsOnTargets)">
 
@@ -91,10 +113,9 @@
       />
   </Target>
 
-
   <!--Support for ncrunch-->
   <ItemGroup  Condition="'$(NCrunch)' == '1'">
-    <None Include="$(FodyPath)\*.*" />
+    <None Include="$(FodyAssemblyPath)\*.*" />
   </ItemGroup>
 
 </Project>
