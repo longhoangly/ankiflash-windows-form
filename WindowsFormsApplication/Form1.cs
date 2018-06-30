@@ -418,5 +418,10 @@ namespace FlashcardsGenerator
             File.WriteAllBytes(Path.Combine(DirectoryPath.ANKI_FLASHCARDS, FileName.VN_SINGLE_FORM_ABCDEFGHLONGLEE123), input3);
             #endregion
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

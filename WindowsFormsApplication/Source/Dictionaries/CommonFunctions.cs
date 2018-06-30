@@ -11,6 +11,10 @@ namespace FlashcardsGenerator
     {
         public StreamReader GetStream(string url, string proxyAddr)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls
+                                     | SecurityProtocolType.Tls11
+                                     | SecurityProtocolType.Tls12;
+
             WebRequest request = WebRequest.Create(url);
             request.Method = WebRequestMethods.Http.Get;
             if (!string.IsNullOrEmpty(proxyAddr))
@@ -25,8 +29,9 @@ namespace FlashcardsGenerator
                 WebResponse response = request.GetResponse();
                 return new StreamReader(response.GetResponseStream());
             }
-            catch (WebException)
+            catch (WebException e)
             {
+                Console.WriteLine(e.StackTrace);
                 return null;
             }
         }

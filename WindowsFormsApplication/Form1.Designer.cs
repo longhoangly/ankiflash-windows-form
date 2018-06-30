@@ -29,219 +29,219 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            btnOpen = new System.Windows.Forms.Button();
-            txtInputPath = new System.Windows.Forms.TextBox();
-            groupBoxInput = new System.Windows.Forms.GroupBox();
-            labelWords = new System.Windows.Forms.Label();
-            txtNumInput = new System.Windows.Forms.TextBox();
-            txtInput = new System.Windows.Forms.RichTextBox();
-            groupBoxOutput = new System.Windows.Forms.GroupBox();
-            txtFailureNumber = new System.Windows.Forms.TextBox();
-            label2 = new System.Windows.Forms.Label();
-            label1 = new System.Windows.Forms.Label();
-            txtFailure = new System.Windows.Forms.RichTextBox();
-            txtOutputNumber = new System.Windows.Forms.TextBox();
-            txtOutput = new System.Windows.Forms.RichTextBox();
-            proBar = new System.Windows.Forms.ProgressBar();
-            openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            btnRun = new System.Windows.Forms.Button();
-            btnCancel = new System.Windows.Forms.Button();
-            cbxLanguages = new System.Windows.Forms.ComboBox();
-            labelLanguages = new System.Windows.Forms.Label();
-            groupBoxProgress = new System.Windows.Forms.GroupBox();
-            support = new System.Windows.Forms.Label();
-            labelProxyConnection = new System.Windows.Forms.Label();
-            txtProxy = new System.Windows.Forms.TextBox();
-            chkUseProxy = new System.Windows.Forms.CheckBox();
-            backgroundWorker = new System.ComponentModel.BackgroundWorker();
-            groupBoxInput.SuspendLayout();
-            groupBoxOutput.SuspendLayout();
-            groupBoxProgress.SuspendLayout();
-            SuspendLayout();
+            this.btnOpen = new System.Windows.Forms.Button();
+            this.txtInputPath = new System.Windows.Forms.TextBox();
+            this.groupBoxInput = new System.Windows.Forms.GroupBox();
+            this.labelWords = new System.Windows.Forms.Label();
+            this.txtNumInput = new System.Windows.Forms.TextBox();
+            this.txtInput = new System.Windows.Forms.RichTextBox();
+            this.groupBoxOutput = new System.Windows.Forms.GroupBox();
+            this.txtFailureNumber = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtFailure = new System.Windows.Forms.RichTextBox();
+            this.txtOutputNumber = new System.Windows.Forms.TextBox();
+            this.txtOutput = new System.Windows.Forms.RichTextBox();
+            this.proBar = new System.Windows.Forms.ProgressBar();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.btnRun = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.cbxLanguages = new System.Windows.Forms.ComboBox();
+            this.labelLanguages = new System.Windows.Forms.Label();
+            this.groupBoxProgress = new System.Windows.Forms.GroupBox();
+            this.support = new System.Windows.Forms.Label();
+            this.labelProxyConnection = new System.Windows.Forms.Label();
+            this.txtProxy = new System.Windows.Forms.TextBox();
+            this.chkUseProxy = new System.Windows.Forms.CheckBox();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.groupBoxInput.SuspendLayout();
+            this.groupBoxOutput.SuspendLayout();
+            this.groupBoxProgress.SuspendLayout();
+            this.SuspendLayout();
             // 
             // btnOpen
             // 
-            btnOpen.AutoSize = true;
-            btnOpen.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            btnOpen.Location = new System.Drawing.Point(9, 19);
-            btnOpen.Name = "btnOpen";
-            btnOpen.Size = new System.Drawing.Size(59, 23);
-            btnOpen.TabIndex = 1;
-            btnOpen.Text = "Open";
-            btnOpen.UseVisualStyleBackColor = false;
-            btnOpen.Click += new System.EventHandler(btnOpen_Click);
+            this.btnOpen.AutoSize = true;
+            this.btnOpen.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btnOpen.Location = new System.Drawing.Point(9, 19);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(59, 23);
+            this.btnOpen.TabIndex = 1;
+            this.btnOpen.Text = "Open";
+            this.btnOpen.UseVisualStyleBackColor = false;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
             // 
             // txtInputPath
             // 
-            txtInputPath.BackColor = System.Drawing.SystemColors.Menu;
-            txtInputPath.Location = new System.Drawing.Point(74, 20);
-            txtInputPath.Name = "txtInputPath";
-            txtInputPath.Size = new System.Drawing.Size(287, 20);
-            txtInputPath.TabIndex = 2;
+            this.txtInputPath.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtInputPath.Location = new System.Drawing.Point(74, 20);
+            this.txtInputPath.Name = "txtInputPath";
+            this.txtInputPath.Size = new System.Drawing.Size(287, 20);
+            this.txtInputPath.TabIndex = 2;
             // 
             // groupBoxInput
             // 
-            groupBoxInput.Controls.Add(labelWords);
-            groupBoxInput.Controls.Add(txtNumInput);
-            groupBoxInput.Controls.Add(txtInput);
-            groupBoxInput.Controls.Add(txtInputPath);
-            groupBoxInput.Controls.Add(btnOpen);
-            groupBoxInput.Location = new System.Drawing.Point(5, 6);
-            groupBoxInput.Name = "groupBoxInput";
-            groupBoxInput.Size = new System.Drawing.Size(369, 277);
-            groupBoxInput.TabIndex = 3;
-            groupBoxInput.TabStop = false;
-            groupBoxInput.Text = "Input";
+            this.groupBoxInput.Controls.Add(this.labelWords);
+            this.groupBoxInput.Controls.Add(this.txtNumInput);
+            this.groupBoxInput.Controls.Add(this.txtInput);
+            this.groupBoxInput.Controls.Add(this.txtInputPath);
+            this.groupBoxInput.Controls.Add(this.btnOpen);
+            this.groupBoxInput.Location = new System.Drawing.Point(5, 6);
+            this.groupBoxInput.Name = "groupBoxInput";
+            this.groupBoxInput.Size = new System.Drawing.Size(369, 277);
+            this.groupBoxInput.TabIndex = 3;
+            this.groupBoxInput.TabStop = false;
+            this.groupBoxInput.Text = "Input";
             // 
             // labelWords
             // 
-            labelWords.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.labelWords.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            labelWords.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            labelWords.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            labelWords.Location = new System.Drawing.Point(209, 50);
-            labelWords.Name = "labelWords";
-            labelWords.Size = new System.Drawing.Size(65, 19);
-            labelWords.TabIndex = 5;
-            labelWords.Text = "Total Words";
-            labelWords.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelWords.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.labelWords.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelWords.Location = new System.Drawing.Point(209, 50);
+            this.labelWords.Name = "labelWords";
+            this.labelWords.Size = new System.Drawing.Size(65, 19);
+            this.labelWords.TabIndex = 5;
+            this.labelWords.Text = "Total Words";
+            this.labelWords.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtNumInput
             // 
-            txtNumInput.Location = new System.Drawing.Point(279, 50);
-            txtNumInput.Name = "txtNumInput";
-            txtNumInput.ReadOnly = true;
-            txtNumInput.Size = new System.Drawing.Size(82, 20);
-            txtNumInput.TabIndex = 4;
-            txtNumInput.Text = "0";
+            this.txtNumInput.Location = new System.Drawing.Point(279, 50);
+            this.txtNumInput.Name = "txtNumInput";
+            this.txtNumInput.ReadOnly = true;
+            this.txtNumInput.Size = new System.Drawing.Size(82, 20);
+            this.txtNumInput.TabIndex = 4;
+            this.txtNumInput.Text = "0";
             // 
             // txtInput
             // 
-            txtInput.BackColor = System.Drawing.SystemColors.Control;
-            txtInput.Location = new System.Drawing.Point(6, 78);
-            txtInput.Name = "txtInput";
-            txtInput.Size = new System.Drawing.Size(355, 193);
-            txtInput.TabIndex = 3;
-            txtInput.Text = string.Empty;
-            txtInput.WordWrap = false;
-            txtInput.TextChanged += new System.EventHandler(txtInput_TextChanged);
+            this.txtInput.BackColor = System.Drawing.SystemColors.Control;
+            this.txtInput.Location = new System.Drawing.Point(6, 78);
+            this.txtInput.Name = "txtInput";
+            this.txtInput.Size = new System.Drawing.Size(355, 193);
+            this.txtInput.TabIndex = 3;
+            this.txtInput.Text = "";
+            this.txtInput.WordWrap = false;
+            this.txtInput.TextChanged += new System.EventHandler(this.txtInput_TextChanged);
             // 
             // groupBoxOutput
             // 
-            groupBoxOutput.Controls.Add(txtFailureNumber);
-            groupBoxOutput.Controls.Add(label2);
-            groupBoxOutput.Controls.Add(label1);
-            groupBoxOutput.Controls.Add(txtFailure);
-            groupBoxOutput.Controls.Add(txtOutputNumber);
-            groupBoxOutput.Controls.Add(txtOutput);
-            groupBoxOutput.Location = new System.Drawing.Point(380, 6);
-            groupBoxOutput.Name = "groupBoxOutput";
-            groupBoxOutput.Size = new System.Drawing.Size(369, 277);
-            groupBoxOutput.TabIndex = 4;
-            groupBoxOutput.TabStop = false;
-            groupBoxOutput.Text = "Output";
+            this.groupBoxOutput.Controls.Add(this.txtFailureNumber);
+            this.groupBoxOutput.Controls.Add(this.label2);
+            this.groupBoxOutput.Controls.Add(this.label1);
+            this.groupBoxOutput.Controls.Add(this.txtFailure);
+            this.groupBoxOutput.Controls.Add(this.txtOutputNumber);
+            this.groupBoxOutput.Controls.Add(this.txtOutput);
+            this.groupBoxOutput.Location = new System.Drawing.Point(380, 6);
+            this.groupBoxOutput.Name = "groupBoxOutput";
+            this.groupBoxOutput.Size = new System.Drawing.Size(369, 277);
+            this.groupBoxOutput.TabIndex = 4;
+            this.groupBoxOutput.TabStop = false;
+            this.groupBoxOutput.Text = "Output";
             // 
-            // txtFailedNum
+            // txtFailureNumber
             // 
-            txtFailureNumber.Location = new System.Drawing.Point(312, 22);
-            txtFailureNumber.Name = "txtFailedNum";
-            txtFailureNumber.ReadOnly = true;
-            txtFailureNumber.Size = new System.Drawing.Size(49, 20);
-            txtFailureNumber.TabIndex = 15;
-            txtFailureNumber.Text = "0";
+            this.txtFailureNumber.Location = new System.Drawing.Point(312, 22);
+            this.txtFailureNumber.Name = "txtFailureNumber";
+            this.txtFailureNumber.ReadOnly = true;
+            this.txtFailureNumber.Size = new System.Drawing.Size(49, 20);
+            this.txtFailureNumber.TabIndex = 15;
+            this.txtFailureNumber.Text = "0";
             // 
             // label2
             // 
-            label2.AutoSize = true;
-            label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            label2.Location = new System.Drawing.Point(184, 25);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(43, 13);
-            label2.TabIndex = 14;
-            label2.Text = "Failures";
+            this.label2.AutoSize = true;
+            this.label2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label2.Location = new System.Drawing.Point(184, 25);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(43, 13);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Failures";
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            label1.Location = new System.Drawing.Point(8, 25);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(48, 13);
-            label1.TabIndex = 13;
-            label1.Text = "Success";
+            this.label1.AutoSize = true;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label1.Location = new System.Drawing.Point(8, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Success";
             // 
-            // txtFailed
+            // txtFailure
             // 
-            txtFailure.Location = new System.Drawing.Point(184, 46);
-            txtFailure.Name = "txtFailed";
-            txtFailure.ReadOnly = true;
-            txtFailure.Size = new System.Drawing.Size(178, 225);
-            txtFailure.TabIndex = 12;
-            txtFailure.Text = string.Empty;
-            txtFailure.WordWrap = false;
+            this.txtFailure.Location = new System.Drawing.Point(184, 46);
+            this.txtFailure.Name = "txtFailure";
+            this.txtFailure.ReadOnly = true;
+            this.txtFailure.Size = new System.Drawing.Size(178, 225);
+            this.txtFailure.TabIndex = 12;
+            this.txtFailure.Text = "";
+            this.txtFailure.WordWrap = false;
             // 
-            // txtNumOutput
+            // txtOutputNumber
             // 
-            txtOutputNumber.Location = new System.Drawing.Point(126, 22);
-            txtOutputNumber.Name = "txtNumOutput";
-            txtOutputNumber.ReadOnly = true;
-            txtOutputNumber.Size = new System.Drawing.Size(50, 20);
-            txtOutputNumber.TabIndex = 6;
-            txtOutputNumber.Text = "0";
+            this.txtOutputNumber.Location = new System.Drawing.Point(126, 22);
+            this.txtOutputNumber.Name = "txtOutputNumber";
+            this.txtOutputNumber.ReadOnly = true;
+            this.txtOutputNumber.Size = new System.Drawing.Size(50, 20);
+            this.txtOutputNumber.TabIndex = 6;
+            this.txtOutputNumber.Text = "0";
             // 
             // txtOutput
             // 
-            txtOutput.Location = new System.Drawing.Point(6, 46);
-            txtOutput.Name = "txtOutput";
-            txtOutput.ReadOnly = true;
-            txtOutput.Size = new System.Drawing.Size(172, 225);
-            txtOutput.TabIndex = 2;
-            txtOutput.Text = string.Empty;
-            txtOutput.WordWrap = false;
+            this.txtOutput.Location = new System.Drawing.Point(6, 46);
+            this.txtOutput.Name = "txtOutput";
+            this.txtOutput.ReadOnly = true;
+            this.txtOutput.Size = new System.Drawing.Size(172, 225);
+            this.txtOutput.TabIndex = 2;
+            this.txtOutput.Text = "";
+            this.txtOutput.WordWrap = false;
             // 
             // proBar
             // 
-            proBar.Location = new System.Drawing.Point(7, 56);
-            proBar.Name = "proBar";
-            proBar.Size = new System.Drawing.Size(354, 19);
-            proBar.TabIndex = 5;
+            this.proBar.Location = new System.Drawing.Point(7, 56);
+            this.proBar.Name = "proBar";
+            this.proBar.Size = new System.Drawing.Size(354, 19);
+            this.proBar.TabIndex = 5;
             // 
             // openFileDialog
             // 
-            openFileDialog.FileName = "Word List.txt";
-            openFileDialog.Multiselect = true;
+            this.openFileDialog.FileName = "Word List.txt";
+            this.openFileDialog.Multiselect = true;
             // 
             // btnRun
             // 
-            btnRun.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            btnRun.Enabled = false;
-            btnRun.Location = new System.Drawing.Point(237, 19);
-            btnRun.Name = "btnRun";
-            btnRun.Size = new System.Drawing.Size(59, 25);
-            btnRun.TabIndex = 3;
-            btnRun.Text = "Run";
-            btnRun.UseVisualStyleBackColor = false;
-            btnRun.Click += new System.EventHandler(btnRun_Click);
+            this.btnRun.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btnRun.Enabled = false;
+            this.btnRun.Location = new System.Drawing.Point(237, 19);
+            this.btnRun.Name = "btnRun";
+            this.btnRun.Size = new System.Drawing.Size(59, 25);
+            this.btnRun.TabIndex = 3;
+            this.btnRun.Text = "Run";
+            this.btnRun.UseVisualStyleBackColor = false;
+            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
             // btnCancel
             // 
-            btnCancel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            btnCancel.Enabled = false;
-            btnCancel.Location = new System.Drawing.Point(302, 19);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new System.Drawing.Size(59, 25);
-            btnCancel.TabIndex = 6;
-            btnCancel.Text = "Cancel";
-            btnCancel.UseVisualStyleBackColor = false;
-            btnCancel.Click += new System.EventHandler(btnCancel_Click);
+            this.btnCancel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.btnCancel.Enabled = false;
+            this.btnCancel.Location = new System.Drawing.Point(302, 19);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(59, 25);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = false;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // comBoxLanguages
+            // cbxLanguages
             // 
-            cbxLanguages.AllowDrop = true;
-            cbxLanguages.Enabled = false;
-            cbxLanguages.FormattingEnabled = true;
-            cbxLanguages.Items.AddRange(new object[] {
+            this.cbxLanguages.AllowDrop = true;
+            this.cbxLanguages.Enabled = false;
+            this.cbxLanguages.FormattingEnabled = true;
+            this.cbxLanguages.Items.AddRange(new object[] {
             "[EN] English",
             "[EN] Vietnamese",
             "[EN] Chinese",
@@ -253,113 +253,114 @@
             "[FR] Vietnamese & English",
             "[VN] English",
             "[VN] French"});
-            cbxLanguages.Location = new System.Drawing.Point(75, 21);
-            cbxLanguages.Name = "comBoxLanguages";
-            cbxLanguages.Size = new System.Drawing.Size(141, 21);
-            cbxLanguages.TabIndex = 7;
-            cbxLanguages.Text = "[en] English";
+            this.cbxLanguages.Location = new System.Drawing.Point(75, 21);
+            this.cbxLanguages.Name = "cbxLanguages";
+            this.cbxLanguages.Size = new System.Drawing.Size(141, 21);
+            this.cbxLanguages.TabIndex = 7;
+            this.cbxLanguages.Text = "[en] English";
             // 
             // labelLanguages
             // 
-            labelLanguages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.labelLanguages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            labelLanguages.Enabled = false;
-            labelLanguages.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            labelLanguages.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            labelLanguages.Location = new System.Drawing.Point(6, 21);
-            labelLanguages.Name = "labelLanguages";
-            labelLanguages.Size = new System.Drawing.Size(63, 21);
-            labelLanguages.TabIndex = 8;
-            labelLanguages.Text = "Languages";
-            labelLanguages.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelLanguages.Enabled = false;
+            this.labelLanguages.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.labelLanguages.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelLanguages.Location = new System.Drawing.Point(6, 21);
+            this.labelLanguages.Name = "labelLanguages";
+            this.labelLanguages.Size = new System.Drawing.Size(63, 21);
+            this.labelLanguages.TabIndex = 8;
+            this.labelLanguages.Text = "Languages";
+            this.labelLanguages.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBoxProgress
             // 
-            groupBoxProgress.Controls.Add(support);
-            groupBoxProgress.Controls.Add(labelProxyConnection);
-            groupBoxProgress.Controls.Add(txtProxy);
-            groupBoxProgress.Controls.Add(chkUseProxy);
-            groupBoxProgress.Controls.Add(labelLanguages);
-            groupBoxProgress.Controls.Add(cbxLanguages);
-            groupBoxProgress.Controls.Add(proBar);
-            groupBoxProgress.Controls.Add(btnCancel);
-            groupBoxProgress.Controls.Add(btnRun);
-            groupBoxProgress.Location = new System.Drawing.Point(5, 289);
-            groupBoxProgress.Name = "groupBoxProgress";
-            groupBoxProgress.Size = new System.Drawing.Size(744, 87);
-            groupBoxProgress.TabIndex = 9;
-            groupBoxProgress.TabStop = false;
-            groupBoxProgress.Text = "Progress";
+            this.groupBoxProgress.Controls.Add(this.support);
+            this.groupBoxProgress.Controls.Add(this.labelProxyConnection);
+            this.groupBoxProgress.Controls.Add(this.txtProxy);
+            this.groupBoxProgress.Controls.Add(this.chkUseProxy);
+            this.groupBoxProgress.Controls.Add(this.labelLanguages);
+            this.groupBoxProgress.Controls.Add(this.cbxLanguages);
+            this.groupBoxProgress.Controls.Add(this.proBar);
+            this.groupBoxProgress.Controls.Add(this.btnCancel);
+            this.groupBoxProgress.Controls.Add(this.btnRun);
+            this.groupBoxProgress.Location = new System.Drawing.Point(5, 289);
+            this.groupBoxProgress.Name = "groupBoxProgress";
+            this.groupBoxProgress.Size = new System.Drawing.Size(744, 87);
+            this.groupBoxProgress.TabIndex = 9;
+            this.groupBoxProgress.TabStop = false;
+            this.groupBoxProgress.Text = "Progress";
             // 
             // support
             // 
-            support.AutoSize = true;
-            support.Location = new System.Drawing.Point(509, 28);
-            support.Name = "support";
-            support.Size = new System.Drawing.Size(173, 13);
-            support.TabIndex = 15;
-            support.Text = "Support: hoanglongtc7@gmail.com";
-            support.Click += new System.EventHandler(support_Click);
+            this.support.AutoSize = true;
+            this.support.Location = new System.Drawing.Point(509, 28);
+            this.support.Name = "support";
+            this.support.Size = new System.Drawing.Size(173, 13);
+            this.support.TabIndex = 15;
+            this.support.Text = "Support: hoanglongtc7@gmail.com";
+            this.support.Click += new System.EventHandler(this.support_Click);
             // 
             // labelProxyConnection
             // 
-            labelProxyConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.labelProxyConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            labelProxyConnection.Enabled = false;
-            labelProxyConnection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            labelProxyConnection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            labelProxyConnection.Location = new System.Drawing.Point(381, 56);
-            labelProxyConnection.Name = "labelProxyConnection";
-            labelProxyConnection.Size = new System.Drawing.Size(125, 19);
-            labelProxyConnection.TabIndex = 14;
-            labelProxyConnection.Text = "Proxy Connection String";
-            labelProxyConnection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelProxyConnection.Enabled = false;
+            this.labelProxyConnection.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.labelProxyConnection.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.labelProxyConnection.Location = new System.Drawing.Point(381, 56);
+            this.labelProxyConnection.Name = "labelProxyConnection";
+            this.labelProxyConnection.Size = new System.Drawing.Size(125, 19);
+            this.labelProxyConnection.TabIndex = 14;
+            this.labelProxyConnection.Text = "Proxy Connection String";
+            this.labelProxyConnection.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // txtProxyString
+            // txtProxy
             // 
-            txtProxy.BackColor = System.Drawing.SystemColors.Menu;
-            txtProxy.Enabled = false;
-            txtProxy.Location = new System.Drawing.Point(512, 56);
-            txtProxy.Name = "txtProxyString";
-            txtProxy.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            txtProxy.Size = new System.Drawing.Size(212, 20);
-            txtProxy.TabIndex = 13;
-            txtProxy.Text = "http://10.10.10.10:8080";
+            this.txtProxy.BackColor = System.Drawing.SystemColors.Menu;
+            this.txtProxy.Enabled = false;
+            this.txtProxy.Location = new System.Drawing.Point(512, 56);
+            this.txtProxy.Name = "txtProxy";
+            this.txtProxy.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.txtProxy.Size = new System.Drawing.Size(212, 20);
+            this.txtProxy.TabIndex = 13;
+            this.txtProxy.Text = "http://10.10.10.10:8080";
             // 
-            // chkBoxUseProxy
+            // chkUseProxy
             // 
-            chkUseProxy.AutoSize = true;
-            chkUseProxy.Location = new System.Drawing.Point(384, 27);
-            chkUseProxy.Name = "chkBoxUseProxy";
-            chkUseProxy.Size = new System.Drawing.Size(73, 17);
-            chkUseProxy.TabIndex = 12;
-            chkUseProxy.Text = "Use proxy";
-            chkUseProxy.UseVisualStyleBackColor = true;
-            chkUseProxy.CheckedChanged += new System.EventHandler(chkBoxUseProxy_CheckedChanged);
+            this.chkUseProxy.AutoSize = true;
+            this.chkUseProxy.Location = new System.Drawing.Point(384, 27);
+            this.chkUseProxy.Name = "chkUseProxy";
+            this.chkUseProxy.Size = new System.Drawing.Size(73, 17);
+            this.chkUseProxy.TabIndex = 12;
+            this.chkUseProxy.Text = "Use proxy";
+            this.chkUseProxy.UseVisualStyleBackColor = true;
+            this.chkUseProxy.CheckedChanged += new System.EventHandler(this.chkBoxUseProxy_CheckedChanged);
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.SystemColors.ControlLightLight;
-            ClientSize = new System.Drawing.Size(754, 380);
-            Controls.Add(groupBoxInput);
-            Controls.Add(groupBoxOutput);
-            Controls.Add(groupBoxProgress);
-            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            Icon = ((System.Drawing.Icon)(resources.GetObject("$Icon")));
-            MaximizeBox = false;
-            Name = "MainForm";
-            Text = "Flashcards Generator v9.1";
-            groupBoxInput.ResumeLayout(false);
-            groupBoxInput.PerformLayout();
-            groupBoxOutput.ResumeLayout(false);
-            groupBoxOutput.PerformLayout();
-            groupBoxProgress.ResumeLayout(false);
-            groupBoxProgress.PerformLayout();
-            ResumeLayout(false);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ClientSize = new System.Drawing.Size(754, 380);
+            this.Controls.Add(this.groupBoxInput);
+            this.Controls.Add(this.groupBoxOutput);
+            this.Controls.Add(this.groupBoxProgress);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.Name = "MainForm";
+            this.Text = "Flashcards Generator v9.1.2";
+            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.groupBoxInput.ResumeLayout(false);
+            this.groupBoxInput.PerformLayout();
+            this.groupBoxOutput.ResumeLayout(false);
+            this.groupBoxOutput.PerformLayout();
+            this.groupBoxProgress.ResumeLayout(false);
+            this.groupBoxProgress.PerformLayout();
+            this.ResumeLayout(false);
 
         }
 

@@ -19,7 +19,7 @@ namespace FlashcardsGenerator.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -147,7 +147,7 @@ namespace FlashcardsGenerator.Properties {
         /// <summary>
         ///   Looks up a localized string similar to 
         ///@font-face{font-family:&apos;Open Sans&apos;;font-style:normal;font-weight:400;src:local(&apos;Open Sans&apos;),local(&apos;OpenSans&apos;),url(/external/fonts/OpenSans.woff?version=3.1.50) format(&apos;woff&apos;);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2212,U+2215,U+E0FF,U+EFFD,U+F000}
-        ///*{word-wrap:break-word;margin:0;padding:0;border:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;font-weight:inherit;font-f [rest of string was truncated]&quot;;.
+        ///*{word-wrap:break-word;margin:0;padding:0;border:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;-o-box-sizing:border-box;box-sizing:border-box;font-weight:inherit;font- [rest of string was truncated]&quot;;.
         /// </summary>
         public static string collins_common {
             get {

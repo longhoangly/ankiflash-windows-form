@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Flashcards Generator v9.1")]
+[assembly: AssemblyTitle("Flashcards Generator v9.1.2")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("FlashcardsGenerator.com")]
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.5")]
-[assembly: AssemblyFileVersion("1.5")]
+[assembly: AssemblyVersion("9.1.2")]
+[assembly: AssemblyFileVersion("9.1.2")]
