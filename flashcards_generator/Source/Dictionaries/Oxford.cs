@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using CsQuery;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
 namespace FlashcardsGenerator.Source.Dictionaries

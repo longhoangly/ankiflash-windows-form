@@ -104,7 +104,7 @@ namespace FlashcardsGenerator
             WordType = collins.GetWordType(CollinsDom);
             Phonetic = collins.GetPhonetic(CollinsDom);
             CollinsExample = collins.GetExamples(CollinsDom, Wrd);
-            Pron = collins.GetPronunciation(CollinsDom, proxy, "a.hwd_sound.sound.audio_play_button");
+            Pron = collins.GetPronunciation(CollinsDom, proxy, "a[class*='audio_play_button']");
             Thumb = collins.GetImages(CollinsDom, Wrd, proxy, string.Empty, string.Empty);
             Img = Thumb;
             Tag = Wrd[0];

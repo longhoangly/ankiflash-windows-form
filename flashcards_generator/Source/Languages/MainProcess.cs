@@ -16,15 +16,15 @@ namespace FlashcardsGenerator
             Console.WriteLine(Constant.GENERATE_CARD_FOR_THE_WORD + word);
             string ankiCard = string.Empty;
 
-            if (language.Contains(Languages.EN_SRC))
+            if (language.StartsWith(Languages.EN_SRC))
             {
                 ankiCard = englishFlashcards.GenerateEnglishFlashCards(word, proxyStr, language);
             }
-            else if (language.Contains(Languages.VN_SRC))
+            else if (language.StartsWith(Languages.VN_SRC))
             {
                 ankiCard = vietnameseFlashcards.GeneratevietnameseFlashCards(word, proxyStr, language);
             }
-            else if (language.Contains(Languages.FR_SRC))
+            else if (language.StartsWith(Languages.FR_SRC))
             {
                 ankiCard = frenchFlashcards.GenerateFrenchFlashCards(word, proxyStr, language);
             }

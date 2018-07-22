@@ -257,7 +257,7 @@
             this.cbxLanguages.Name = "cbxLanguages";
             this.cbxLanguages.Size = new System.Drawing.Size(141, 21);
             this.cbxLanguages.TabIndex = 7;
-            this.cbxLanguages.Text = "[en] English";
+            this.cbxLanguages.Text = "[EN] English";
             // 
             // labelLanguages
             // 
@@ -352,8 +352,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Flashcards Generator v9.1.2";
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Text = "Flashcards Generator v9.1.3";
             this.groupBoxInput.ResumeLayout(false);
             this.groupBoxInput.PerformLayout();
             this.groupBoxOutput.ResumeLayout(false);

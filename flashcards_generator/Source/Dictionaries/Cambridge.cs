@@ -1,10 +1,7 @@
 ﻿using CsQuery;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace FlashcardsGenerator.Source.Dictionaries
 {
@@ -25,14 +22,11 @@ namespace FlashcardsGenerator.Source.Dictionaries
 
         public string GetWord(CQ dom)
         {
-            return commonFunctions.GetTextElement(dom, "h2>span", 0);
+            return commonFunctions.GetTextElement(dom, "span.headword>span", 0);
         }
 
         public string GetMeaning(CQ dom)
         {
-            IDomObject contentElement = commonFunctions.GetDomElement(dom, "div#entryContent", 0);
-            contentElement.AddClass("entrybox english-chinese-simplified entry-body");
-
             IDomObject ukSoundIcon = commonFunctions.GetDomElement(dom, "span.circle.circle-btn.sound.audio_play_button.uk", 0);
             if (ukSoundIcon != null) ukSoundIcon.Remove();
 
@@ -44,6 +38,12 @@ namespace FlashcardsGenerator.Source.Dictionaries
 
             IDomObject shareThisEntry = commonFunctions.GetDomElement(dom, "div.share.rounded.js-share", 0);
             shareThisEntry.Remove();
+
+            List<IDomObject> scripts = commonFunctions.GetDomElements(dom, "script");
+            if (scripts.Any()) scripts.ForEach(x => x.Remove());
+
+            IDomObject contentElement = commonFunctions.GetDomElement(dom, "div#entryContent", 0);
+            contentElement.AddClass("entrybox english-chinese-simplified entry-body");
 
             string htmlContent = "<html>" + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">" +
                                       "<link type=\"text/css\" rel=\"stylesheet\" href=\"common.css\">" +

@@ -2,8 +2,8 @@
 using System.IO;
 using System.Net;
 using CsQuery;
-using System.Windows.Forms;
-using FlashcardsGenerator.Source;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FlashcardsGenerator
 {
@@ -60,6 +60,11 @@ namespace FlashcardsGenerator
             {
                 return null;
             }
+        }
+
+        public List<IDomObject> GetDomElements(CQ dom, string selector)
+        {
+            return dom.Select(selector).Get().ToList();
         }
 
         public IDomObject GetDomElement(CQ dom, string selector, int index)

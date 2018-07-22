@@ -107,7 +107,7 @@ namespace FlashcardsGenerator
                     }
                 }
 
-                OxfMeaning = oxford.GetMeaning(OxfDom);
+                // OxfMeaning = oxford.GetMeaning(OxfDom);
                 CamMeaning = cambridge.GetMeaning(CamDom);
             }
             else

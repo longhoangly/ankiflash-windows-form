@@ -26,7 +26,7 @@ namespace FlashcardsGenerator.Source.Dictionaries
 
         public string GetWord(CQ dom)
         {
-            return commonFunctions.GetTextElement(dom, "h2[class=orth h1_entry]", 0);
+            return commonFunctions.GetTextElement(dom, "h2[class=h2_entry]>span", 0);
         }
 
         public string GetWordType(CQ dom)
@@ -96,14 +96,9 @@ namespace FlashcardsGenerator.Source.Dictionaries
         public string GetPronunciation(CQ dom, string proxy, string selector)
         {
             string pro_link = commonFunctions.GetElementAttribute(dom, selector, 0, "data-src-mp3");
-
             if (pro_link.Equals(string.Empty))
             {
                 return string.Empty;
-            }
-            else
-            {
-                pro_link = "http://www.collinsdictionary.com" + pro_link;
             }
 
             string pro_name = pro_link.Split('/')[pro_link.Split('/').Length - 1];
@@ -136,13 +131,13 @@ namespace FlashcardsGenerator.Source.Dictionaries
 
         public string GetMeaning(CQ dom)
         {
-            IDomObject domContent = commonFunctions.GetDomElement(dom, "div.homograph-entry", 0);
-
             IDomObject wordFrequency = commonFunctions.GetDomElement(dom, "div.word-frequency-container.res_hos", 0);
             if (wordFrequency != null) wordFrequency.Remove();
 
             IDomObject socialButtons = commonFunctions.GetDomElement(dom, "div.socialButtons", 0);
             if (socialButtons != null) socialButtons.Remove();
+
+            IDomObject domContent = commonFunctions.GetDomElement(dom, "div.homograph-entry", 0);
 
             string htmlContent =
                 "<html>" + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">" +

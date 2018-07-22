@@ -111,24 +111,24 @@ namespace FlashcardsGenerator.Source
         public static string IMAGE = Path.Combine(ANKI_FLASHCARDS, "images");
     }
 
-    public struct Languages
+    public class Languages
     {
-        public const string EN_SRC = "[EN]";
-        public const string EN2EN = "[EN] English";
-        public const string EN2VI = "[EN] Vietnamese";
-        public const string EN2CH = "[EN] Chinese";
-        public const string EN2EN_VI = "[EN] English & Vietnamese";
-        public const string EN2VI_EN = "[EN] Vietnamese & English";
+        public static string EN_SRC = "[EN]";
+        public static string EN2EN = $"{EN_SRC} English";
+        public static string EN2VI = $"{EN_SRC} Vietnamese";
+        public static string EN2CH = $"{EN_SRC} Chinese";
+        public static string EN2EN_VI = $"{EN_SRC} English & Vietnamese";
+        public static string EN2VI_EN = $"{EN_SRC} Vietnamese & English";
 
-        public const string FR_SRC = "[FR]";
-        public const string FR2VI = "[FR] Vietnamese";
-        public const string FR2EN = "[FR] English";
-        public const string FR2EN_VI = "[FR] English & Vietnamese";
-        public const string FR2VI_EN = "[FR] Vietnamese & English";
+        public static string FR_SRC = "[FR]";
+        public static string FR2VI = $"{FR_SRC} Vietnamese";
+        public static string FR2EN = $"{FR_SRC} English";
+        public static string FR2EN_VI = $"{FR_SRC} English & Vietnamese";
+        public static string FR2VI_EN = $"{FR_SRC} Vietnamese & English";
 
-        public const string VN_SRC = "[VN]";
-        public const string VN2EN = "[VN] English";
-        public const string VN2FR = "[VN] French";
+        public static string VN_SRC = "[VN]";
+        public static string VN2EN = $"{VN_SRC} English";
+        public static string VN2FR = $"{VN_SRC} French";
     }
 
     public struct Constant
