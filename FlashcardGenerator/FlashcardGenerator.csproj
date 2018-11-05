@@ -87,11 +87,13 @@
     <Compile Include="Source\Card\Card.cs" />
     <Compile Include="Source\Card\EnglishCard.cs" />
     <Compile Include="Source\Card\FrenchCard.cs" />
+    <Compile Include="Source\Card\SpanishCard.cs" />
     <Compile Include="Source\Card\JapaneseCard.cs" />
     <Compile Include="Source\Card\VietnameseCard.cs" />
     <Compile Include="Source\Dictionary\CambridgeDictionary.cs" />
     <Compile Include="Source\Dictionary\CollinsDictionary.cs" />
     <Compile Include="Source\Dictionary\DictionaryModel.cs" />
+    <Compile Include="Source\Dictionary\WordReferenceDictionary.cs" />
     <Compile Include="Source\Dictionary\JishoDictionary.cs" />
     <Compile Include="Source\Dictionary\LacVietDictionary.cs" />
     <Compile Include="Source\Dictionary\OxfordDictionary.cs" />

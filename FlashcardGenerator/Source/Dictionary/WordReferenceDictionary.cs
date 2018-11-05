@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CsQuery;
+﻿using CsQuery;
 using FlashcardGenerator.Source.Utility;
 using FlashcardGenerator.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FlashcardGenerator.Source.DictionaryModel
 {
-    public class JishoDictionary : Dictionary
+    public class WordReferenceDictionary : Dictionary
     {
         public override bool IsConnectionEstablished(string word, string proxy, string language)
         {
